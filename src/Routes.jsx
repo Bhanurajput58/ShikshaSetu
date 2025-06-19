@@ -13,11 +13,31 @@ export default function AppRoutes() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/about" element={
+          <div className="page-with-header">
+            <About />
+          </div>
+        } />
+        <Route path="/courses" element={
+          <div className="page-with-header">
+            <Courses />
+          </div>
+        } />
+        <Route path="/contact" element={
+          <div className="page-with-header">
+            <Contact />
+          </div>
+        } />
+        <Route path="/login" element={
+          <div className="page-with-header">
+            <Login />
+          </div>
+        } />
+        <Route path="/register" element={
+          <div className="page-with-header">
+            <Register />
+          </div>
+        } />
       </Routes>
     </Router>
   );
