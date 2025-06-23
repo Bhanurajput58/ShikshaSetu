@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <div className="home-root">
       <div className="home-hero">
-        <div className="hero-content">
+        <div className="home-hero-content">
           <h1 className="home-title">
             Welcome to <span className="hindi-text">शिक्षा</span><span className="separator">-</span><span className="english-text">Setu</span>
           </h1>
@@ -78,31 +78,31 @@ export default function Home() {
       </div>
 
       <Container maxWidth="lg">
-        <Grid container spacing={4} className="stats-grid">
+        <Grid container spacing={4} className="home-stats-grid">
           {stats.map((stat, index) => (
             <Grid key={index} columns={{ xs: 12, sm: 6, md: 3 }}>
-              <Paper elevation={0} className="stat-card">
-                <div className="stat-icon">{stat.icon}</div>
-                <Typography variant="h4" className="stat-count">{stat.count}</Typography>
-                <Typography variant="subtitle1" className="stat-label">{stat.label}</Typography>
+              <Paper elevation={0} className="home-stat-card">
+                <div className="home-stat-icon">{stat.icon}</div>
+                <Typography variant="h4" className="home-stat-count">{stat.count}</Typography>
+                <Typography variant="subtitle1" className="home-stat-label">{stat.label}</Typography>
               </Paper>
             </Grid>
           ))}
         </Grid>
       </Container>
 
-      <Container maxWidth="lg" className="section features-section">
-        <Typography variant="h3" className="section-title">
+      <Container maxWidth="lg" className="home-section home-features-section">
+        <Typography variant="h3" className="home-section-title">
           Why Choose ShikshaSetu?
         </Typography>
         <Grid container spacing={4}>
           {features.map((feature, index) => (
             <Grid key={index} columns={{ xs: 12, sm: 6, md: 3 }}>
-              <Paper elevation={2} className="feature-card">
-                <Typography variant="h5" className="feature-title">
+              <Paper elevation={2} className="home-feature-card">
+                <Typography variant="h5" className="home-feature-title">
                   {feature.title}
                 </Typography>
-                <Typography variant="body1" className="feature-description">
+                <Typography variant="body1" className="home-feature-description">
                   {feature.description}
                 </Typography>
               </Paper>
@@ -111,23 +111,23 @@ export default function Home() {
         </Grid>
       </Container>
 
-      <div className="testimonials-section">
+      <div className="home-testimonials-section">
         <Container maxWidth="lg">
-          <Typography variant="h3" className="section-title">
+          <Typography variant="h3" className="home-section-title">
             What Our Community Says
           </Typography>
           <Grid container spacing={4} sx={{ justifyContent: 'center', py: 4 }}>
             {testimonials.length > 0 ? (
               testimonials.map((testimonial, index) => (
                 <Grid key={index} columns={{ xs: 12, md: 4 }}>
-                  <Paper elevation={3} className="testimonial-card">
-                    <Typography variant="body1" className="testimonial-text">
+                  <Paper elevation={3} className="home-testimonial-card">
+                    <Typography variant="body1" className="home-testimonial-text">
                       "{testimonial.text}"
                     </Typography>
-                    <Typography variant="h6" className="testimonial-name">
+                    <Typography variant="h6" className="home-testimonial-name">
                       {testimonial.name}
                     </Typography>
-                    <Typography variant="subtitle2" className="testimonial-role">
+                    <Typography variant="subtitle2" className="home-testimonial-role">
                       {testimonial.role}
                     </Typography>
                   </Paper>
@@ -153,7 +153,7 @@ export default function Home() {
       </div>
 
       <div className="home-footer">
-        <Typography variant="h5" className="footer-quote">
+        <Typography variant="h5" className="home-footer-quote">
           Empowering through education, one learner at a time.
         </Typography>
         <Button 
@@ -162,7 +162,7 @@ export default function Home() {
           variant="contained" 
           color="primary" 
           size="large" 
-          className="explore-btn"
+          className="home-explore-btn"
         >
           Explore Our Courses
         </Button>
