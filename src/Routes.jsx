@@ -6,6 +6,8 @@ import Courses from './pages/Courses';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import StudentDashboard from './pages/StudentDashboard';
+import React from 'react';
 
 export default function AppRoutes() {
   return (
@@ -18,6 +20,7 @@ export default function AppRoutes() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<StudentDashboard />} />
       </Routes>
     </Router>
   );

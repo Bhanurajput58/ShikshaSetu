@@ -225,9 +225,10 @@
 }
 
 .home-stats-grid {
-  margin-top: -80px;
+  margin-top: 0px;
   position: relative;
   z-index: 2;
+  width: 100% !important;
 }
 
 .home-stat-card {
@@ -244,6 +245,11 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .home-stat-card::before {
@@ -301,6 +307,7 @@
 /* Features Section */
 .home-features-section {
   position: relative;
+  flex-wrap: nowrap;
 }
 
 .home-features-section::before {
@@ -355,6 +362,9 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }
 
 .home-feature-card::before {
@@ -611,9 +621,9 @@
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
   }
 }
 
@@ -622,4 +632,8 @@
   .home-root {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 100%);
   }
+}
+
+.home-features-section .MuiGrid-container {
+  flex-wrap: nowrap !important;
 }
