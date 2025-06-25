@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import About from './pages/About';
 import Courses from './pages/Courses';
+import CourseLibrary from './pages/StudentDashboard/CourseLibrary';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -17,6 +18,7 @@ export default function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/course-library" element={<CourseLibrary />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
