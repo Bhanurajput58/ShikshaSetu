@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Courses from './pages/Courses';
 import CourseLibrary from './pages/StudentDashboard/CourseLibrary';
+import MyCourses from './pages/StudentDashboard/MyCourses';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -19,6 +20,7 @@ export default function AppRoutes() {
         <Route path="/about" element={<About />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/course-library" element={<CourseLibrary />} />
+        <Route path="/my-courses" element={<MyCourses />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
