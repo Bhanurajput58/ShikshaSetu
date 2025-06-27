@@ -31,6 +31,7 @@ export default function Header() {
               <Link to="/courses" className="header-link">Courses</Link>
               <Link to="/course-library" className="header-link">Course Library</Link>
               <Link to="/my-courses" className="header-link">My Courses</Link>
+              <Link to="/mentorship" className="header-link">Mentorship</Link>
               <Link to="/dashboard" className="header-link">Dashboard</Link>
               <Link to="/contact" className="header-link">Contact</Link>
             </nav>
