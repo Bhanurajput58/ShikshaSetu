@@ -7,6 +7,7 @@ import CourseLibrary from './pages/StudentDashboard/CourseLibrary';
 import MyCourses from './pages/StudentDashboard/MyCourses';
 import MentorshipProgram from './pages/StudentDashboard/MentorshipProgram';
 import CommunityForum from './pages/StudentDashboard/CommunityForum';
+import StudentProfile from './pages/StudentDashboard/StudentProfile';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -25,6 +26,7 @@ export default function AppRoutes() {
         <Route path="/my-courses" element={<MyCourses />} />
         <Route path="/mentorship" element={<MentorshipProgram />} />
         <Route path="/community-forum" element={<CommunityForum />} />
+        <Route path="/profile" element={<StudentProfile />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
