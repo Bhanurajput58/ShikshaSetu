@@ -44,7 +44,7 @@ import {
   LocationOn,
   CalendarToday,
   Grade,
-  BookOpen,
+  MenuBook,
   Star
 } from '@mui/icons-material';
 import './StudentProfile.css';

@@ -12,6 +12,7 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import StudentDashboard from './pages/StudentDashboard';
+import EducatorDashboardHome from './pages/Educator Dashboard/Home';
 import React from 'react';
 
 export default function AppRoutes() {
@@ -31,6 +32,7 @@ export default function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<StudentDashboard />} />
+        <Route path="/educator-dashboard" element={<EducatorDashboardHome />} />
       </Routes>
     </Router>
   );
