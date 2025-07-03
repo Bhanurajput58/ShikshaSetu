@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const UploadResource = () => {
   const [type, setType] = useState('video');
@@ -25,7 +26,13 @@ const UploadResource = () => {
 
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-blue-800">Upload Course / Resource</h1>
+      <h1 className="text-3xl font-bold mb-6 text-blue-800">Upload Resource</h1>
+      <nav className="mb-8 flex flex-wrap gap-4">
+        <Link to="/educator-dashboard" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Home</Link>
+        <Link to="/educator-dashboard/upload" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Upload Resource</Link>
+        <Link to="/educator-dashboard/manage" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Manage Courses</Link>
+        <Link to="/educator-dashboard/mentorship-requests" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Mentorship Requests</Link>
+      </nav>
       <form onSubmit={handleSubmit} className="bg-white shadow rounded-lg p-8 max-w-xl mx-auto flex flex-col gap-6">
         <div>
           <label className="block text-lg font-semibold mb-2 text-gray-700">Type</label>

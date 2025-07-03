@@ -1,9 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const EducatorDashboardHome = () => {
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-blue-800">Educator Dashboard - Home</h1>
+      <nav className="mb-8 flex flex-wrap gap-4">
+        <Link to="/educator-dashboard" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Home</Link>
+        <Link to="/educator-dashboard/upload" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Upload Resource</Link>
+        <Link to="/educator-dashboard/manage" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Manage Courses</Link>
+        <Link to="/educator-dashboard/mentorship-requests" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Mentorship Requests</Link>
+      </nav>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {/* Overview Cards */}
         <div className="bg-white shadow rounded-lg p-6 flex flex-col items-center">

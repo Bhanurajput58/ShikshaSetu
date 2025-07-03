@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const mockCourses = [
   {
@@ -48,7 +49,13 @@ const ManageCourses = () => {
 
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-blue-800">Manage Courses / Resources</h1>
+      <h1 className="text-3xl font-bold mb-6 text-blue-800">Manage Courses</h1>
+      <nav className="mb-8 flex flex-wrap gap-4">
+        <Link to="/educator-dashboard" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Home</Link>
+        <Link to="/educator-dashboard/upload" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Upload Resource</Link>
+        <Link to="/educator-dashboard/manage" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Manage Courses</Link>
+        <Link to="/educator-dashboard/mentorship-requests" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Mentorship Requests</Link>
+      </nav>
       <div className="bg-white shadow rounded-lg p-8 max-w-3xl mx-auto">
         <h2 className="text-2xl font-semibold mb-4 text-blue-700">Your Uploaded Content</h2>
         <ul className="divide-y divide-gray-200">
