@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const mockRequests = [
   {
@@ -42,6 +43,13 @@ export default function MentorshipRequests() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4 text-blue-800">Mentorship Requests</h1>
+      <nav className="mb-8 flex flex-wrap gap-4">
+        <Link to="/educator-dashboard" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Home</Link>
+        <Link to="/educator-dashboard/upload" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Upload Resource</Link>
+        <Link to="/educator-dashboard/manage" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Manage Courses</Link>
+        <Link to="/educator-dashboard/mentorship-requests" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Mentorship Requests</Link>
+        <Link to="/educator-dashboard/forum" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Forum Participation</Link>
+      </nav>
       <table className="min-w-full bg-white border">
         <thead>
           <tr>

@@ -32,6 +32,7 @@ const UploadResource = () => {
         <Link to="/educator-dashboard/upload" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Upload Resource</Link>
         <Link to="/educator-dashboard/manage" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Manage Courses</Link>
         <Link to="/educator-dashboard/mentorship-requests" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Mentorship Requests</Link>
+        <Link to="/educator-dashboard/forum" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Forum Participation</Link>
       </nav>
       <form onSubmit={handleSubmit} className="bg-white shadow rounded-lg p-8 max-w-xl mx-auto flex flex-col gap-6">
         <div>

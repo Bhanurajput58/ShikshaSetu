@@ -16,6 +16,7 @@ import EducatorDashboardHome from './pages/Educator Dashboard/Home';
 import UploadResource from './pages/Educator Dashboard/UploadResource';
 import ManageCourses from './pages/Educator Dashboard/ManageCourses';
 import MentorshipRequests from './pages/Educator Dashboard/MentorshipRequests';
+import ForumParticipation from './pages/Educator Dashboard/ForumParticipation';
 import React from 'react';
 
 export default function AppRoutes() {
@@ -39,6 +40,7 @@ export default function AppRoutes() {
         <Route path="/educator-dashboard/upload" element={<UploadResource />} />
         <Route path="/educator-dashboard/manage" element={<ManageCourses />} />
         <Route path="/educator-dashboard/mentorship-requests" element={<MentorshipRequests />} />
+        <Route path="/educator-dashboard/forum" element={<ForumParticipation />} />
       </Routes>
     </Router>
   );
