@@ -1,6 +1,7 @@
 /* My Courses Container */
 .my-courses-container {
   padding: 2rem;
+  margin-top: -2rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   position: relative;
@@ -113,17 +114,16 @@
   background: linear-gradient(135deg, #f59e0b, #d97706);
 }
 
-.stat-number {
-  font-size: 2rem !important;
-  font-weight: 800 !important;
-  color: #1e293b !important;
-  margin-bottom: 0.25rem !important;
+.stats-section .stat-number {
+  color: #e11d48 !important;
+  font-size: 2.5rem !important;
+  font-weight: 900 !important;
 }
 
-.stat-label {
-  color: #64748b !important;
-  font-weight: 500 !important;
-  font-size: 0.875rem !important;
+.stats-section .stat-label {
+  color: #0ea5e9 !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
 }
 
 /* Overall Progress Card */

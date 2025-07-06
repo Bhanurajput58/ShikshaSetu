@@ -273,93 +273,91 @@ export default function CourseLibrary() {
             {filteredCourses.length} course{filteredCourses.length !== 1 ? 's' : ''} found
           </Typography>
           
-          <Grid container spacing={3}>
+          <div className="course-library-grid">
             {filteredCourses.map(course => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={course.id}>
-                <Card className="course-library-card">
-                  <div className="course-library-card-image">
-                    <img src={course.thumbnail} alt={course.title} />
-                    <div className="course-library-card-overlay">
-                      <Button
-                        variant="contained"
-                        className={`course-library-enroll-btn ${enrolledCourses.includes(course.id) ? 'enrolled' : ''}`}
-                        onClick={() => handleEnroll(course.id)}
-                        startIcon={enrolledCourses.includes(course.id) ? <PlayArrow /> : <Book />}
-                      >
-                        {enrolledCourses.includes(course.id) ? 'Continue Learning' : 'Enroll Free'}
-                      </Button>
-                    </div>
+              <Card className="course-library-card" key={course.id}>
+                <div className="course-library-card-image">
+                  <img src={course.thumbnail} alt={course.title} />
+                  <div className="course-library-card-overlay">
+                    <Button
+                      variant="contained"
+                      className={`course-library-enroll-btn ${enrolledCourses.includes(course.id) ? 'enrolled' : ''}`}
+                      onClick={() => handleEnroll(course.id)}
+                      startIcon={enrolledCourses.includes(course.id) ? <PlayArrow /> : <Book />}
+                    >
+                      {enrolledCourses.includes(course.id) ? 'Continue Learning' : 'Enroll Free'}
+                    </Button>
                   </div>
-                  
-                  <CardContent className="course-library-card-content">
-                    <Box className="course-library-card-header">
-                      <Typography className="course-library-card-title">
-                        {course.title}
-                      </Typography>
-                      <Box className="course-library-card-rating">
-                        <Rating value={course.rating} precision={0.1} size="small" readOnly />
-                        <Typography className="course-library-card-rating-text">
-                          ({course.reviews})
-                        </Typography>
-                      </Box>
-                    </Box>
-                    
-                    <Typography className="course-library-card-description">
-                      {course.description}
+                </div>
+                
+                <CardContent className="course-library-card-content">
+                  <Box className="course-library-card-header">
+                    <Typography className="course-library-card-title">
+                      {course.title}
                     </Typography>
-                    
-                    <Box className="course-library-card-instructor">
-                      <Avatar src={course.instructorAvatar} className="course-library-instructor-avatar" />
-                      <Typography className="course-library-instructor-name">
-                        {course.instructor}
+                    <Box className="course-library-card-rating">
+                      <Rating value={course.rating} precision={0.1} size="small" readOnly />
+                      <Typography className="course-library-card-rating-text">
+                        ({course.reviews})
                       </Typography>
                     </Box>
-                    
-                    <Box className="course-library-card-meta">
-                      <Box className="course-library-card-info">
-                        <AccessTime className="course-library-meta-icon" />
-                        <Typography className="course-library-meta-text">
-                          {course.duration}
-                        </Typography>
-                      </Box>
-                      <Box className="course-library-card-info">
-                        <People className="course-library-meta-icon" />
-                        <Typography className="course-library-meta-text">
-                          {course.students.toLocaleString()}
-                        </Typography>
-                      </Box>
+                  </Box>
+                  
+                  <Typography className="course-library-card-description">
+                    {course.description}
+                  </Typography>
+                  
+                  <Box className="course-library-card-instructor">
+                    <Avatar src={course.instructorAvatar} className="course-library-instructor-avatar" />
+                    <Typography className="course-library-instructor-name">
+                      {course.instructor}
+                    </Typography>
+                  </Box>
+                  
+                  <Box className="course-library-card-meta">
+                    <Box className="course-library-card-info">
+                      <AccessTime className="course-library-meta-icon" />
+                      <Typography className="course-library-meta-text">
+                        {course.duration}
+                      </Typography>
                     </Box>
-                    
-                    <Box className="course-library-card-chips">
+                    <Box className="course-library-card-info">
+                      <People className="course-library-meta-icon" />
+                      <Typography className="course-library-meta-text">
+                        {course.students.toLocaleString()}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  
+                  <Box className="course-library-card-chips">
+                    <Chip 
+                      label={course.subject} 
+                      size="small" 
+                      className="course-library-chip subject"
+                      icon={getSubjectIcon(course.subject)}
+                    />
+                    <Chip 
+                      label={course.level} 
+                      size="small" 
+                      className="course-library-chip level"
+                    />
+                  </Box>
+                  
+                  <Box className="course-library-card-tags">
+                    {course.tags.slice(0, 3).map(tag => (
                       <Chip 
-                        label={course.subject} 
+                        key={tag} 
+                        label={tag} 
                         size="small" 
-                        className="course-library-chip subject"
-                        icon={getSubjectIcon(course.subject)}
+                        variant="outlined"
+                        className="course-library-tag"
                       />
-                      <Chip 
-                        label={course.level} 
-                        size="small" 
-                        className="course-library-chip level"
-                      />
-                    </Box>
-                    
-                    <Box className="course-library-card-tags">
-                      {course.tags.slice(0, 3).map(tag => (
-                        <Chip 
-                          key={tag} 
-                          label={tag} 
-                          size="small" 
-                          variant="outlined"
-                          className="course-library-tag"
-                        />
-                      ))}
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
+                    ))}
+                  </Box>
+                </CardContent>
+              </Card>
             ))}
-          </Grid>
+          </div>
           
           {filteredCourses.length === 0 && (
             <div className="course-library-empty-state">
@@ -376,4 +374,4 @@ export default function CourseLibrary() {
       </div>
     </div>
   );
-} 
+}

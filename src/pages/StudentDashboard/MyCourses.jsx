@@ -181,8 +181,12 @@ export default function MyCourses({ student }) {
               <div className="stat-icon total-courses">
                 <BookOpen size={24} />
               </div>
-              <Typography className="stat-number">{overallStats.totalCourses}</Typography>
-              <Typography className="stat-label">Total Courses</Typography>
+              <Typography className="stat-number">
+                {overallStats.totalCourses}
+              </Typography>
+              <Typography className="stat-label">
+                Total Courses
+              </Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -192,8 +196,12 @@ export default function MyCourses({ student }) {
               <div className="stat-icon completed">
                 <Award size={24} />
               </div>
-              <Typography className="stat-number">{overallStats.completedCourses}</Typography>
-              <Typography className="stat-label">Completed</Typography>
+              <Typography className="stat-number">
+                {overallStats.completedCourses}
+              </Typography>
+              <Typography className="stat-label">
+                Completed
+              </Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -203,8 +211,12 @@ export default function MyCourses({ student }) {
               <div className="stat-icon in-progress">
                 <TrendingUp size={24} />
               </div>
-              <Typography className="stat-number">{overallStats.inProgressCourses}</Typography>
-              <Typography className="stat-label">In Progress</Typography>
+              <Typography className="stat-number">
+                {overallStats.inProgressCourses}
+              </Typography>
+              <Typography className="stat-label">
+                In Progress
+              </Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -214,8 +226,12 @@ export default function MyCourses({ student }) {
               <div className="stat-icon hours">
                 <Clock size={24} />
               </div>
-              <Typography className="stat-number">{overallStats.completedHours}h</Typography>
-              <Typography className="stat-label">Hours Completed</Typography>
+              <Typography className="stat-number">
+                {overallStats.completedHours}h
+              </Typography>
+              <Typography className="stat-label">
+                Hours Completed
+              </Typography>
             </CardContent>
           </Card>
         </Grid>

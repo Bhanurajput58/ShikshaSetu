@@ -1,0 +1,290 @@
+.login-container {
+  height: calc(100vh - 78px);
+  background: white;
+  padding: 0;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  position: fixed;
+  top: 78px; /* Position below header */
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.login-grid {
+  height: calc(100vh - 78px);
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.login-illustration-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.login-illustration {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+}
+
+/* Increase image width for login page */
+.login-container img {
+  max-width: 90% !important;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  height: calc(100vh - 78px);
+  width: 100%;
+  max-height: calc(100vh - 78px);
+  margin: 0;
+  position: relative;
+}
+
+/* Style for the login title above the form */
+.login-form-container h4 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+.login-form-paper {
+  width: 100%;
+  max-width: 450px;
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  max-height: calc(100vh - 94px); /* Subtract header + padding */
+  overflow-y: auto;
+  margin: 0;
+}
+
+.login-title {
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.login-tabs {
+  margin-bottom: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 0.25rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-tabs .MuiTab-root {
+  font-weight: 500;
+  text-transform: none;
+  font-size: 0.9rem;
+  min-height: 48px;
+  color: #64748b;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-tabs .MuiTab-root::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.login-tabs .MuiTab-root:hover::before {
+  left: 100%;
+}
+
+.login-tabs .MuiTab-root:hover {
+  background: rgba(25, 118, 210, 0.08);
+  transform: translateY(-2px);
+}
+
+.login-tabs .Mui-selected {
+  color: #1976d2;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.login-tabs .MuiTabs-indicator {
+  display: none;
+}
+
+.login-text-field {
+  margin-bottom: 1.5rem;
+}
+
+.login-text-field .MuiOutlinedInput-root {
+  border-radius: 12px;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.login-text-field .MuiOutlinedInput-root:hover {
+  background: #e9ecef;
+}
+
+.login-text-field .MuiOutlinedInput-root.Mui-focused {
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.login-button {
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: none;
+  font-size: 1.1rem;
+  padding: 12px 24px;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
+}
+
+.login-button:disabled {
+  transform: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.login-register-link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.login-register-link:hover {
+  color: #1565c0;
+  text-decoration: underline;
+}
+
+.welcome-text {
+  font-weight: 700;
+  color: #2c3e50;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.welcome-subtitle {
+  margin-top: 0.5rem;
+  color: #6c757d;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Mobile Responsive */
+@media (max-width: 960px) {
+  .login-container {
+    height: calc(100vh - 64px);
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .login-form-paper {
+    padding: 1.25rem 0.75rem;
+    margin: 0 0.25rem;
+    max-height: calc(100vh - 80px);
+  }
+  
+  .login-illustration-container {
+    padding: 0.25rem;
+  }
+  
+  .welcome-text {
+    font-size: 1.5rem;
+  }
+  
+  .welcome-subtitle {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .login-form-paper {
+    padding: 1rem 0.5rem;
+    margin: 0 0.125rem;
+    max-height: calc(100vh - 80px);
+  }
+  
+  .login-title {
+    font-size: 1.75rem;
+  }
+  
+  .login-tabs {
+    margin-bottom: 1rem;
+    padding: 0.375rem;
+  }
+  
+  .login-tabs .MuiTab-root {
+    font-size: 0.875rem;
+    min-height: 40px;
+    margin: 0 0.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-tabs .MuiTab-root {
+    font-size: 0.8rem;
+    min-height: 36px;
+    padding: 6px 8px;
+  }
+}
+
+/* Animation for illustration */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.login-illustration {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Custom scrollbar for the page */
+.login-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.login-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.login-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.login-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+} 

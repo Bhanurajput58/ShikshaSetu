@@ -1,6 +1,7 @@
 /* Course Library Styles */
 .course-library-root {
   min-height: 100vh;
+  margin-top: -2rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
@@ -146,6 +147,14 @@
   text-align: center;
 }
 
+/* NEW: CSS Grid Layout for 2 cards per row */
+.course-library-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 30px;
+}
+
 /* Course Cards */
 .course-library-card {
   height: 100%;
@@ -155,6 +164,10 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .course-library-card:hover {
@@ -398,6 +411,11 @@
   .course-library-card-title {
     margin-right: 0;
   }
+  
+  /* Single column on mobile */
+  .course-library-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -428,4 +446,236 @@
   .course-library-section {
     padding: 40px 0;
   }
-} 
+}
+
+/* Additional breakpoints for better responsiveness */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .course-library-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .course-library-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+
+/* Large screens - maintain 2 columns but with better spacing */
+@media (min-width: 1200px) {
+  .course-library-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  
+  .course-library-card {
+    max-width: none;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1400px) {
+  .course-library-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+/* Tablet landscape - ensure 2 columns */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .course-library-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .course-library-card-image {
+    height: 180px;
+  }
+}
+
+/* Small tablet portrait - maintain 2 columns */
+@media (min-width: 600px) and (max-width: 767px) {
+  .course-library-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .course-library-card-image {
+    height: 160px;
+  }
+  
+  .course-library-card-content {
+    padding: 16px !important;
+  }
+  
+  .course-library-card-title {
+    font-size: 1rem !important;
+  }
+  
+  .course-library-card-description {
+    font-size: 0.85rem !important;
+  }
+}
+
+/* Force 2 columns on all screens except mobile */
+@media (min-width: 481px) {
+  .course-library-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Mobile only - single column */
+@media (max-width: 480px) {
+  .course-library-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+  
+  .course-library-card-image {
+    height: 200px;
+  }
+}
+
+/* Hover effects for desktop only */
+@media (hover: hover) {
+  .course-library-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  .course-library-card:hover .course-library-card-image img {
+    transform: scale(1.05);
+  }
+  
+  .course-library-card:hover .course-library-card-overlay {
+    opacity: 1;
+  }
+  
+  .course-library-enroll-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6) !important;
+  }
+  
+  .course-library-enroll-btn.enrolled:hover {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6) !important;
+  }
+}
+
+/* Touch devices - remove hover effects */
+@media (hover: none) {
+  .course-library-card:hover {
+    transform: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .course-library-card:hover .course-library-card-image img {
+    transform: none;
+  }
+  
+  .course-library-card-overlay {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Print styles */
+@media print {
+  .course-library-hero {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .course-library-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+  
+  .course-library-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+  
+  .course-library-card-overlay {
+    display: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .course-library-card {
+    border: 2px solid #000 !important;
+  }
+  
+  .course-library-enroll-btn {
+    background: #000 !important;
+    color: #fff !important;
+  }
+  
+  .course-library-chip.subject {
+    background: #000 !important;
+    color: #fff !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .course-library-card {
+    transition: none !important;
+  }
+  
+  .course-library-card-image img {
+    transition: none !important;
+  }
+  
+  .course-library-card-overlay {
+    transition: none !important;
+  }
+  
+  .course-library-enroll-btn {
+    transition: none !important;
+  }
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+  .course-library-section {
+    background: #1a1a1a;
+  }
+  
+  .course-library-card {
+    background: #2d2d2d !important;
+    border-color: #404040 !important;
+  }
+  
+  .course-library-card-title {
+    color: #ffffff !important;
+  }
+  
+  .course-library-card-description {
+    color: #cccccc !important;
+  }
+  
+  .course-library-meta-text {
+    color: #cccccc !important;
+  }
+  
+  .course-library-instructor-name {
+    color: #cccccc !important;
+  }
+  
+  .course-library-results {
+    color: #cccccc !important;
+  }
+  
+  .course-library-empty-title {
+    color: #ffffff !important;
+  }
+  
+  .course-library-empty-text {
+    color: #cccccc !important;
+  }
+}
