@@ -1,6 +1,7 @@
 /* Profile Container */
 .profile-container {
   padding: 2rem;
+  margin-top: -2rem;
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
@@ -20,6 +21,8 @@
 
 .profile-subtitle {
   opacity: 0.9;
+  font-size: 1rem !important;
+  /* align-items: baseline !important; */
   font-weight: 400 !important;
 }
 
@@ -30,7 +33,10 @@
   border-radius: 20px !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  height: fit-content;
+  height: 100%;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .profile-content-card {
@@ -39,7 +45,10 @@
   border-radius: 20px !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  height: 100%;
   min-height: 600px;
+  flex: 1 1 0%;
+  min-width: 0;
 }
 
 /* Profile Picture Section */
@@ -102,16 +111,18 @@
 .action-buttons {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+  /* width: 150px; */
+  /* margin-bottom: 2rem;
+  padding-bottom: 1rem; */
+  /* border-bottom: 1px solid #e2e8f0; */
 }
 
 .edit-btn {
   background: linear-gradient(135deg, #667eea, #764ba2) !important;
   color: white !important;
   border-radius: 25px !important;
-  padding: 8px 24px !important;
+  margin-left: 2px;
+  /* padding: 8px 24px !important; */
   font-weight: 600 !important;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
   transition: all 0.3s ease !important;
@@ -159,7 +170,7 @@
 
 /* Profile Tabs */
 .profile-tabs {
-  margin-bottom: 2rem;
+  /* margin-bottom: 0.05rem; */
 }
 
 .tabs {
@@ -187,7 +198,7 @@
 
 /* Tab Content */
 .tab-content {
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 }
 
 /* Profile Fields */
@@ -217,6 +228,23 @@
   border-width: 2px !important;
 }
 
+/* Make input text and placeholder darker for better visibility */
+.profile-field .MuiInputBase-input {
+  color: #2d3748 !important; /* dark gray for input text */
+}
+
+.profile-field .MuiInputBase-input::placeholder {
+  color: #718096 !important; /* medium gray for placeholder */
+  opacity: 1 !important;
+}
+
+/* Make sure label is visible and doesn't overlap */
+.profile-field .MuiInputLabel-root {
+  color: #667eea !important; /* purple for label */
+  background: white;
+  padding: 0 4px;
+}
+
 /* Section Subtitles */
 .section-subtitle {
   color: #2d3748 !important;
@@ -243,14 +271,14 @@
 
 /* Interests Section */
 .interests-section {
-  padding: 1rem 0;
+  /* padding: 1rem 0; */
 }
 
 .interests-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .add-interest-btn {
@@ -449,4 +477,68 @@
     min-height: 50px !important;
     font-size: 0.875rem !important;
   }
+}
+
+/* Add a flex row for the main profile area */
+.profile-main-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 2rem;
+}
+
+.profile-card,
+.profile-content-card {
+  height: 100%;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-main-row > *:first-child {
+  flex: 0 0 40%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.profile-main-row > *:last-child {
+  flex: 1 1 60%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .profile-main-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .profile-main-row > *:first-child,
+  .profile-main-row > *:last-child {
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+.profile-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center !important;
+  background: transparent;
+  border-radius: 12px;
+  min-height: 120px;
+}
+
+.profile-stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 0.25rem;
+}
+
+.profile-stat-label {
+  font-size: 0.95rem;
+  color: #718096;
+  font-weight: 500;
 } 
