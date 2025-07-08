@@ -4,11 +4,14 @@ import { useAuth } from '../contexts/AuthContext';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import PersonIcon from '@mui/icons-material/Person';
+import WorkIcon from '@mui/icons-material/Work';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const StudentNav = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
   const closeTimer = useRef();
 
@@ -77,8 +80,13 @@ const StudentNav = () => {
             onMouseEnter={handleAvatarMouseEnter}
             onMouseLeave={handleAvatarMouseLeave}
           >
+            {user?.name && (
+              <span style={{ marginRight: '12px', fontWeight: 500, fontSize: '1rem', color: '#444' }}>
+                Hi, {user.name}
+              </span>
+            )}
             <Avatar
-              src="https://ui-avatars.com/api/?name=Profile&background=667eea&color=fff"
+              src={user?.profilePicture || "https://ui-avatars.com/api/?name=Profile&background=667eea&color=fff"}
               alt="Profile"
               className="cursor-pointer"
             />
@@ -93,9 +101,22 @@ const StudentNav = () => {
                 onMouseLeave: handleMenuMouseLeave,
               }}
               disableScrollLock={true}
+              PaperProps={{
+                style: {
+                  minWidth: 200,
+                  borderRadius: 12,
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                  padding: 0
+                }
+              }}
             >
-              <MenuItem onClick={handleProfile}>Profile</MenuItem>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              <MenuItem onClick={handleProfile} style={{ fontSize: '1rem', padding: '12px 20px' }}>
+                <PersonIcon style={{ marginRight: 12, color: '#555' }} /> My Profile
+              </MenuItem>
+              <div style={{ borderTop: '1px solid #eee', margin: '4px 0' }} />
+              <MenuItem onClick={handleLogout} style={{ fontSize: '1rem', padding: '12px 20px', color: '#d32f2f' }}>
+                <LogoutIcon style={{ marginRight: 12, color: '#d32f2f' }} /> Logout
+              </MenuItem>
             </Menu>
           </div>
         </div>

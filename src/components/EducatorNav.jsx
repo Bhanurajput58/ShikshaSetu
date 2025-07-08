@@ -4,11 +4,13 @@ import { useAuth } from '../contexts/AuthContext';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const EducatorNav = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
   const closeTimer = useRef();
 
@@ -75,29 +77,66 @@ const EducatorNav = () => {
           </div>
           <div
             className="flex items-center"
-            onMouseEnter={handleAvatarMouseEnter}
-            onMouseLeave={handleAvatarMouseLeave}
+            onMouseEnter={user ? handleAvatarMouseEnter : undefined}
+            onMouseLeave={user ? handleAvatarMouseLeave : undefined}
           >
+            {user?.name && (
+              <span style={{ marginRight: '12px', fontWeight: 500, fontSize: '1rem', color: '#444' }}>
+                Hi, {user.name}
+              </span>
+            )}
             <Avatar
-              src="https://ui-avatars.com/api/?name=Educator&background=667eea&color=fff"
-              alt="Profile"
+              src={
+                user?.profilePicture && user.profilePicture.startsWith('data')
+                  ? user.profilePicture
+                  : (user?.profilePicture
+                      ? `${user.profilePicture}`
+                      : undefined)
+              }
+              alt={user?.name || "Profile"}
               className="cursor-pointer"
-            />
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleAvatarMouseLeave}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-              MenuListProps={{
-                onMouseEnter: handleMenuMouseEnter,
-                onMouseLeave: handleMenuMouseLeave,
-              }}
-              disableScrollLock={true}
             >
-              <MenuItem onClick={handleProfile}>Profile</MenuItem>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            </Menu>
+              {!user?.profilePicture && user?.name
+                ? user.name.charAt(0).toUpperCase()
+                : null}
+            </Avatar>
+            {user ? (
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleAvatarMouseLeave}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                MenuListProps={{
+                  onMouseEnter: handleMenuMouseEnter,
+                  onMouseLeave: handleMenuMouseLeave,
+                }}
+                disableScrollLock={true}
+                PaperProps={{
+                  style: {
+                    minWidth: 200,
+                    borderRadius: 12,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                    padding: 0
+                  }
+                }}
+              >
+                <MenuItem onClick={handleProfile} style={{ fontSize: '1rem', padding: '12px 20px' }}>
+                  <PersonIcon style={{ marginRight: 12, color: '#555' }} /> My Profile
+                </MenuItem>
+                <div style={{ borderTop: '1px solid #eee', margin: '4px 0' }} />
+                <MenuItem onClick={handleLogout} style={{ fontSize: '1rem', padding: '12px 20px', color: '#d32f2f' }}>
+                  <LogoutIcon style={{ marginRight: 12, color: '#d32f2f' }} /> Logout
+                </MenuItem>
+              </Menu>
+            ) : (
+              <button
+                onClick={() => navigate('/login')}
+                style={{ marginLeft: 12, padding: '6px 18px', borderRadius: 6, border: 'none', background: '#667eea', color: '#fff', fontWeight: 500, cursor: 'pointer' }}
+              >
+                Login
+              </button>
+            )}
           </div>
         </div>
       </div>
