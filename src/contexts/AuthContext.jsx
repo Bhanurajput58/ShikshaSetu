@@ -16,36 +16,41 @@ export const AuthProvider = ({ children }) => {
   const [showLogoutMessage, setShowLogoutMessage] = useState(false);
 
   useEffect(() => {
-    // Check if user is logged in on app start
+    // Fetch user profile from backend if token exists
     const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
-    
-    if (token && userData) {
-      try {
-        setUser(JSON.parse(userData));
-      } catch (error) {
-        console.error('Error parsing user data:', error);
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-      }
+    if (token) {
+      fetch('http://localhost:5000/api/user/profile', {
+        headers: { 'Authorization': `Bearer ${token}` },
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch user profile');
+          return res.json();
+        })
+        .then(data => {
+          setUser(data);
+        })
+        .catch(err => {
+          setUser(null);
+          localStorage.removeItem('token');
+          console.error('Error fetching user profile:', err);
+        })
+        .finally(() => setLoading(false));
+    } else {
+      setUser(null);
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   const login = (userData, token) => {
     setUser(userData);
     localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(userData));
     setShowLogoutMessage(false);
   };
 
   const logout = (callback) => {
     setUser(null);
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
     setShowLogoutMessage(true);
-    
-    // If a callback is provided, execute it after state update
     if (callback) {
       setTimeout(callback, 0);
     }

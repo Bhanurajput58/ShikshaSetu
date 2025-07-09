@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
@@ -18,7 +18,8 @@ import {
   ListItemAvatar,
   ListItemText,
   Divider,
-  Alert
+  Alert,
+  Snackbar
 } from '@mui/material';
 import { 
   Users, 
@@ -35,8 +36,12 @@ import {
   Award
 } from 'lucide-react';
 import './MentorshipProgram.css';
+import { useAuth } from '../../contexts/AuthContext';
 
-export default function MentorshipProgram({ student }) {
+const API_BASE = 'http://localhost:5000';
+
+export default function MentorshipProgram() {
+  const { user } = useAuth();
   const [applyDialogOpen, setApplyDialogOpen] = useState(false);
   const [applicationForm, setApplicationForm] = useState({
     subject: '',
@@ -45,60 +50,218 @@ export default function MentorshipProgram({ student }) {
     availability: '',
     preferredMentor: ''
   });
+  const [feedback, setFeedback] = useState({ open: false, message: '', severity: 'success' });
+  const [studentId, setStudentId] = useState(null);
+  const [myRequest, setMyRequest] = useState(null);
+  const [isUpdateMode, setIsUpdateMode] = useState(false);
+  const [confirmCancelOpen, setConfirmCancelOpen] = useState(false);
 
-  const assignedMentor = {
-    id: 1,
-    name: 'Dr. Sarah Johnson',
-    subject: 'Computer Science',
-    experience: '8 years',
-    rating: 4.8,
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
-    email: 'sarah.johnson@university.edu',
-    bio: 'Senior Software Engineer at Google with expertise in machine learning and web development. Passionate about mentoring students and helping them achieve their career goals.',
-    skills: ['JavaScript', 'Python', 'React', 'Machine Learning', 'System Design']
+  // Container styles for responsive layout
+  const containerStyle = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '2rem',
+    alignItems: 'flex-start',
+    maxWidth: '1200px',
+    margin: '0 auto'
   };
 
-  const sessions = [
-    {
-      id: 1,
-      title: 'Introduction to React Hooks',
-      date: '2024-01-15',
-      time: '14:00',
-      duration: '60 min',
-      status: 'completed',
-      notes: 'Covered useState, useEffect, and custom hooks. Great progress on the project!'
-    },
-    {
-      id: 2,
-      title: 'System Design Interview Prep',
-      date: '2024-01-22',
-      time: '15:30',
-      duration: '90 min',
-      status: 'upcoming',
-      notes: ''
-    },
-    {
-      id: 3,
-      title: 'Code Review & Best Practices',
-      date: '2024-01-29',
-      time: '16:00',
-      duration: '60 min',
-      status: 'scheduled',
-      notes: ''
-    }
-  ];
+  const applyStyle = {
+    flex: '0 0 30%',
+    transform: 'translateY(20px)',
+    minWidth: '300px'
+  };
 
-  const handleApplySubmit = () => {
-    // Handle application submission
-    console.log('Application submitted:', applicationForm);
-    setApplyDialogOpen(false);
+  const mentorStyle = {
+    flex: '0 0 65%',
+    minWidth: '400px'
+  };
+
+  const sessionsStyle = {
+    flex: '0 0 100%',
+    marginTop: '1rem'
+  };
+
+  // Mobile responsive styles
+  const mobileStyle = {
+    '@media (max-width: 768px)': {
+      flexDirection: 'column',
+      '& > *': {
+        flex: '1 1 100%',
+        transform: 'none !important',
+        marginTop: '0 !important'
+      }
+    }
+  };
+
+  // Fetch student profile to get _id (if not available in user)
+  useEffect(() => {
+    async function fetchStudentId() {
+      if (user && user._id) {
+        setStudentId(user._id);
+        return;
+      }
+      // fallback: fetch profile
+      try {
+        const token = localStorage.getItem('token');
+        const res = await fetch(`${API_BASE}/api/student/profile`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setStudentId(data._id);
+        }
+      } catch (err) {
+        // ignore
+      }
+    }
+    fetchStudentId();
+  }, [user]);
+
+  // Fetch student's mentorship request
+  const fetchMyRequest = async () => {
+    if (!studentId) return;
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_BASE}/api/mentorship/my-request`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data) setMyRequest(data);
+      }
+    } catch (err) {
+      // ignore
+    }
+  };
+  useEffect(() => { fetchMyRequest(); }, [studentId]);
+
+  // Placeholder for dynamic mentor assignment
+  const assignedMentor = null; // Will be set dynamically later
+
+  // Placeholder for dynamic sessions
+  const sessions = []; // Will be set dynamically later
+
+  const handleApplySubmit = async () => {
+    if (!studentId) {
+      setFeedback({ open: true, message: 'Student ID not found. Please re-login.', severity: 'error' });
+      return;
+    }
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_BASE}/api/mentorship/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          student: studentId,
+          subject: applicationForm.subject,
+          goals: applicationForm.goals,
+          experience: applicationForm.experience,
+          availability: applicationForm.availability,
+          preferredMentor: applicationForm.preferredMentor,
+        }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to submit application');
+      }
+      setFeedback({ open: true, message: 'Application submitted successfully!', severity: 'success' });
+      setApplyDialogOpen(false);
+      setApplicationForm({
+        subject: '',
+        goals: '',
+        experience: '',
+        availability: '',
+        preferredMentor: ''
+      });
+      // Fetch the latest request to update UI
+      fetchMyRequest();
+    } catch (error) {
+      setFeedback({ open: true, message: error.message || 'Submission failed', severity: 'error' });
+    }
+  };
+
+  // Open update dialog with pre-filled data
+  const handleUpdateClick = () => {
     setApplicationForm({
-      subject: '',
-      goals: '',
-      experience: '',
-      availability: '',
-      preferredMentor: ''
+      subject: myRequest.subject || '',
+      goals: myRequest.goals || '',
+      experience: myRequest.experience || '',
+      availability: myRequest.availability || '',
+      preferredMentor: myRequest.preferredMentor || ''
     });
+    setIsUpdateMode(true);
+    setApplyDialogOpen(true);
+  };
+
+  // Cancel mentorship request (with confirmation)
+  const handleCancelRequest = async () => {
+    setConfirmCancelOpen(true);
+  };
+
+  const handleConfirmCancel = async () => {
+    setConfirmCancelOpen(false);
+    if (!studentId) return;
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_BASE}/api/mentorship/my-request`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Failed to cancel request');
+      }
+      setFeedback({ open: true, message: 'Request cancelled successfully!', severity: 'success' });
+      setMyRequest(null);
+    } catch (error) {
+      setFeedback({ open: true, message: error.message || 'Cancel failed', severity: 'error' });
+    }
+  };
+
+  // Update mentorship request
+  const handleUpdateSubmit = async () => {
+    if (!studentId) {
+      setFeedback({ open: true, message: 'Student ID not found. Please re-login.', severity: 'error' });
+      return;
+    }
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_BASE}/api/mentorship/my-request`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          subject: applicationForm.subject,
+          goals: applicationForm.goals,
+          experience: applicationForm.experience,
+          availability: applicationForm.availability,
+          preferredMentor: applicationForm.preferredMentor,
+        }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update application');
+      }
+      setFeedback({ open: true, message: 'Application updated successfully!', severity: 'success' });
+      setApplyDialogOpen(false);
+      setIsUpdateMode(false);
+      setApplicationForm({
+        subject: '',
+        goals: '',
+        experience: '',
+        availability: '',
+        preferredMentor: ''
+      });
+      fetchMyRequest();
+    } catch (error) {
+      setFeedback({ open: true, message: error.message || 'Update failed', severity: 'error' });
+    }
   };
 
   const getStatusColor = (status) => {
@@ -136,9 +299,19 @@ export default function MentorshipProgram({ student }) {
         </div>
       </div>
 
-      <Grid container spacing={4} className="main-content">
+      {/* Main Content with Responsive Layout */}
+      <div 
+        className="main-content"
+        style={{
+          ...containerStyle,
+          ...mobileStyle
+        }}
+      >
         {/* Apply for Mentor Section */}
-        <Grid item xs={12} lg={4}>
+        <div 
+          className="apply-section-wrapper"
+          style={window.innerWidth > 768 ? applyStyle : { flex: '1 1 100%' }}
+        >
           <Card className="mentorship-card">
             <CardContent className="card-content">
               <div className="section-header">
@@ -148,7 +321,7 @@ export default function MentorshipProgram({ student }) {
                 </Typography>
               </div>
               
-              {!assignedMentor ? (
+              {!myRequest ? (
                 <div className="apply-section">
                   <Typography className="section-description">
                     Ready to accelerate your learning? Apply for a mentor who can guide you through your educational journey.
@@ -163,18 +336,39 @@ export default function MentorshipProgram({ student }) {
                   </Button>
                 </div>
               ) : (
-                <Alert severity="success" className="success-alert">
+                <Alert severity={myRequest.status === 'pending' ? 'info' : myRequest.status === 'accepted' ? 'success' : 'warning'} className="success-alert">
                   <Typography variant="body2">
-                    You have been assigned a mentor! Check the "Your Mentor" section below.
+                    {myRequest.status === 'accepted' ? (
+                      <>
+                        Congratulations! Your mentorship request has been <b>accepted</b>.<br/>
+                      </>
+                    ) : (
+                      <>
+                        You have already applied for a mentor.<br/>
+                        Status: <b>{myRequest.status}</b>
+                        {myRequest.subject && (<><br/>Subject: {myRequest.subject}</>)}
+                        {myRequest.goals && (<><br/>Goals: {myRequest.goals}</>)}
+                      </>
+                    )}
                   </Typography>
+                  <Box mt={2} display="flex" gap={1}>
+                    {/* Only show Update button if not accepted */}
+                    {myRequest.status !== 'accepted' && (
+                      <Button variant="outlined" color="primary" onClick={handleUpdateClick}>Update</Button>
+                    )}
+                    <Button variant="outlined" color="error" onClick={handleCancelRequest}>Cancel</Button>
+                  </Box>
                 </Alert>
               )}
             </CardContent>
           </Card>
-        </Grid>
+        </div>
 
         {/* Assigned Mentor Section */}
-        <Grid item xs={12} lg={8}>
+        <div 
+          className="mentor-section-wrapper"
+          style={window.innerWidth > 768 ? mentorStyle : { flex: '1 1 100%' }}
+        >
           <Card className="mentorship-card">
             <CardContent className="card-content">
               <div className="section-header">
@@ -184,63 +378,29 @@ export default function MentorshipProgram({ student }) {
                 </Typography>
               </div>
               
-              {assignedMentor ? (
+              {myRequest && myRequest.educator ? (
                 <div className="mentor-profile">
                   <div className="mentor-header">
-                    <Avatar 
-                      src={assignedMentor.avatar} 
-                      alt={assignedMentor.name}
+                    <Avatar
                       className="mentor-avatar"
-                    />
+                      src={myRequest.educator.personalInfo?.profilePicture || ''}
+                      alt={myRequest.educator.name}
+                    >
+                      {myRequest.educator.name?.[0]}
+                    </Avatar>
                     <div className="mentor-info">
                       <Typography variant="h6" className="mentor-name">
-                        {assignedMentor.name}
+                        {myRequest.educator.name}
                       </Typography>
-                      <Typography variant="body2" className="mentor-subject">
-                        {assignedMentor.subject} • {assignedMentor.experience} experience
+                      <Typography className="mentor-subject">
+                        {myRequest.educator.professionalInfo?.currentPosition || 'Mentor'}
                       </Typography>
-                      <div className="mentor-rating">
-                        <Star size={16} className="star-icon" />
-                        <span>{assignedMentor.rating}/5.0</span>
-                      </div>
-                    </div>
-                    <div className="mentor-actions">
-                      <Button 
-                        variant="outlined" 
-                        size="small"
-                        startIcon={<MessageCircle />}
-                        className="contact-button"
-                      >
-                        Message
-                      </Button>
-                      <Button 
-                        variant="outlined" 
-                        size="small"
-                        startIcon={<Video />}
-                        className="contact-button"
-                      >
-                        Video Call
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <Typography variant="body2" className="mentor-bio">
-                    {assignedMentor.bio}
-                  </Typography>
-                  
-                  <div className="mentor-skills">
-                    <Typography variant="subtitle2" className="skills-title">
-                      Expertise:
-                    </Typography>
-                    <div className="skills-list">
-                      {assignedMentor.skills.map((skill, index) => (
-                        <Chip 
-                          key={index} 
-                          label={skill} 
-                          size="small" 
-                          className="skill-chip"
-                        />
-                      ))}
+                      <Typography className="mentor-bio">
+                        {myRequest.educator.personalInfo?.bio || 'No bio available.'}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        Email: {myRequest.educator.email}
+                      </Typography>
                     </div>
                   </div>
                 </div>
@@ -257,10 +417,13 @@ export default function MentorshipProgram({ student }) {
               )}
             </CardContent>
           </Card>
-        </Grid>
+        </div>
 
         {/* Sessions Tracking Section */}
-        <Grid item xs={12}>
+        <div 
+          className="sessions-section-wrapper"
+          style={window.innerWidth > 768 ? sessionsStyle : { flex: '1 1 100%' }}
+        >
           <Card className="mentorship-card">
             <CardContent className="card-content">
               <div className="section-header">
@@ -272,96 +435,7 @@ export default function MentorshipProgram({ student }) {
               
               {sessions.length > 0 ? (
                 <div className="sessions-container">
-                  <div className="sessions-stats">
-                    <div className="stat-item">
-                      <Typography variant="h4" className="stat-number">
-                        {sessions.filter(s => s.status === 'completed').length}
-                      </Typography>
-                      <Typography variant="body2" className="stat-label">
-                        Completed
-                      </Typography>
-                    </div>
-                    <div className="stat-item">
-                      <Typography variant="h4" className="stat-number">
-                        {sessions.filter(s => s.status === 'upcoming').length}
-                      </Typography>
-                      <Typography variant="body2" className="stat-label">
-                        Upcoming
-                      </Typography>
-                    </div>
-                    <div className="stat-item">
-                      <Typography variant="h4" className="stat-number">
-                        {sessions.filter(s => s.status === 'scheduled').length}
-                      </Typography>
-                      <Typography variant="body2" className="stat-label">
-                        Scheduled
-                      </Typography>
-                    </div>
-                  </div>
-                  
-                  <List className="sessions-list">
-                    {sessions.map((session) => (
-                      <React.Fragment key={session.id}>
-                        <ListItem className="session-item">
-                          <ListItemAvatar>
-                            <Avatar className="session-avatar">
-                              {getStatusIcon(session.status)}
-                            </Avatar>
-                          </ListItemAvatar>
-                          <ListItemText
-                            primary={
-                              <div className="session-header">
-                                <Typography className="session-title">
-                                  {session.title}
-                                </Typography>
-                                <Chip 
-                                  label={session.status} 
-                                  size="small"
-                                  color={getStatusColor(session.status)}
-                                  className="status-chip"
-                                />
-                              </div>
-                            }
-                            secondary={
-                              <div className="session-details">
-                                <Typography variant="body2" className="session-time">
-                                  {new Date(session.date).toLocaleDateString()} at {session.time} ({session.duration})
-                                </Typography>
-                                {session.notes && (
-                                  <Typography variant="body2" className="session-notes">
-                                    {session.notes}
-                                  </Typography>
-                                )}
-                              </div>
-                            }
-                          />
-                          <div className="session-actions">
-                            {session.status === 'upcoming' && (
-                              <Button 
-                                variant="outlined" 
-                                size="small"
-                                startIcon={<Calendar />}
-                                className="reschedule-button"
-                              >
-                                Reschedule
-                              </Button>
-                            )}
-                            {session.status === 'scheduled' && (
-                              <Button 
-                                variant="contained" 
-                                size="small"
-                                startIcon={<Video />}
-                                className="join-button"
-                              >
-                                Join
-                              </Button>
-                            )}
-                          </div>
-                        </ListItem>
-                        <Divider />
-                      </React.Fragment>
-                    ))}
-                  </List>
+                  {/* Sessions will be rendered here dynamically */}
                 </div>
               ) : (
                 <div className="empty-state">
@@ -376,8 +450,8 @@ export default function MentorshipProgram({ student }) {
               )}
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+        </div>
+      </div>
 
       {/* Apply for Mentor Dialog */}
       <Dialog 
@@ -389,7 +463,7 @@ export default function MentorshipProgram({ student }) {
       >
         <DialogTitle className="dialog-title">
           <UserPlus className="dialog-icon" />
-          Apply for a Mentor
+          {isUpdateMode ? 'Update Application' : 'Apply for a Mentor'}
         </DialogTitle>
         <DialogContent className="dialog-content">
           <Grid container spacing={3}>
@@ -445,18 +519,58 @@ export default function MentorshipProgram({ student }) {
           </Grid>
         </DialogContent>
         <DialogActions className="dialog-actions">
-          <Button onClick={() => setApplyDialogOpen(false)}>
+          <Button onClick={() => { 
+            setApplyDialogOpen(false); 
+            setIsUpdateMode(false); 
+            setApplicationForm({
+              subject: '',
+              goals: '',
+              experience: '',
+              availability: '',
+              preferredMentor: ''
+            });
+          }}>
             Cancel
           </Button>
           <Button 
-            onClick={handleApplySubmit} 
+            onClick={isUpdateMode ? handleUpdateSubmit : handleApplySubmit} 
             variant="contained"
             startIcon={<Send />}
           >
-            Submit Application
+            {isUpdateMode ? 'Update Application' : 'Submit Application'}
           </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Feedback Snackbar */}
+      <Snackbar
+        open={feedback.open}
+        autoHideDuration={3000}
+        onClose={() => setFeedback({ ...feedback, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        sx={{ zIndex: 9999 }}
+      >
+        <Alert
+          severity={feedback.severity}
+          onClose={() => setFeedback({ ...feedback, open: false })}
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          {feedback.message}
+        </Alert>
+      </Snackbar>
+
+      {/* Cancel Confirmation Dialog */}
+      <Dialog open={confirmCancelOpen} onClose={() => setConfirmCancelOpen(false)}>
+        <DialogTitle>Cancel Mentorship Request</DialogTitle>
+        <DialogContent>
+          <Typography>Are you sure you want to cancel your mentorship request? This action cannot be undone.</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setConfirmCancelOpen(false)} color="primary">No</Button>
+          <Button onClick={handleConfirmCancel} color="error" variant="contained">Yes, Cancel</Button>
         </DialogActions>
       </Dialog>
     </Box>
   );
-} 
+}

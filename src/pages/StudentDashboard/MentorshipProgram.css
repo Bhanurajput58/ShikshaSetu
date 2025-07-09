@@ -1,6 +1,7 @@
 /* Mentorship Container */
 .mentorship-container {
   padding: 2rem;
+  margin-top: -2rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   position: relative;
@@ -58,10 +59,60 @@
   50% { transform: translateY(-10px); }
 }
 
-/* Main Content */
+/* Main Content - Responsive Layout */
 .main-content {
   position: relative;
   z-index: 1;
+}
+
+/* Desktop Layout */
+@media (min-width: 1024px) {
+  .main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .apply-section-wrapper {
+    flex: 0 0 30%;
+    transform: translateY(20px);
+  }
+  
+  .mentor-section-wrapper {
+    flex: 0 0 65%;
+    padding-top: 20px
+  }
+  
+  .sessions-section-wrapper {
+    flex: 0 0 100%;
+    margin-top: 1rem;
+  }
+}
+
+/* Tablet Layout */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .apply-section-wrapper,
+  .mentor-section-wrapper,
+  .sessions-section-wrapper {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Mobile Layout */
+@media (max-width: 767px) {
+  .apply-section-wrapper,
+  .mentor-section-wrapper,
+  .sessions-section-wrapper {
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* Cards */
@@ -484,6 +535,11 @@
     margin-top: 1rem;
     justify-content: center;
   }
+
+  /* Reset desktop layout transforms on mobile */
+  .apply-section-wrapper {
+    transform: none !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -513,4 +569,4 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
-} 
+}
