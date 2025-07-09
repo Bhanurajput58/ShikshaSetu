@@ -1,0 +1,108 @@
+/* Container and Title */
+.mentorship-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  padding: 32px 24px 24px 24px;
+}
+
+.mentorship-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: #2d3748;
+  text-align: center;
+}
+
+/* Table Styles */
+.mentorship-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fafbfc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.mentorship-th, .mentorship-td {
+  padding: 14px 12px;
+  text-align: left;
+}
+
+.mentorship-th {
+  background: #f3f4f6;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.mentorship-td {
+  border-bottom: 1px solid #e5e7eb;
+  color: #444;
+}
+
+.mentorship-table tr:last-child .mentorship-td {
+  border-bottom: none;
+}
+
+/* Button Styles */
+.mentorship-btn {
+  padding: 7px 16px;
+  margin: 0 4px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.mentorship-btn-accept {
+  background: #22c55e;
+  color: #fff;
+}
+.mentorship-btn-accept:hover {
+  background: #16a34a;
+}
+
+.mentorship-btn-reject {
+  background: #ef4444;
+  color: #fff;
+}
+.mentorship-btn-reject:hover {
+  background: #b91c1c;
+}
+
+.mentorship-btn-schedule {
+  background: #3b82f6;
+  color: #fff;
+}
+.mentorship-btn-schedule:hover {
+  background: #1d4ed8;
+}
+
+.mentorship-schedule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mentorship-date-input {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Loading and Error States */
+.mentorship-loading, .mentorship-error {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 40px 0;
+}
+
+.mentorship-error {
+  color: #ef4444;
+  font-weight: 600;
+} 

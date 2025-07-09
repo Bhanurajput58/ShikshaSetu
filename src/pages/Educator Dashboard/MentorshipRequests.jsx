@@ -1,109 +1,136 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
-const mockRequests = [
-  {
-    id: 1,
-    studentName: 'Bhanu',
-    topic: 'React Basics',
-    requestedDate: '2024-06-10',
-    status: 'pending',
-  },
-  {
-    id: 2,
-    studentName: 'Kavya',
-    topic: 'Node.js',
-    requestedDate: '2024-06-12',
-    status: 'pending',
-  },
-];
+const API_BASE = 'http://localhost:5000';
 
 export default function MentorshipRequests() {
-  const [requests, setRequests] = useState(mockRequests);
+  const [requests, setRequests] = useState([]);
   const [sessionDate, setSessionDate] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const handleAction = (id, action) => {
-    setRequests((prev) =>
-      prev.map((req) =>
-        req.id === id ? { ...req, status: action } : req
-      )
-    );
+  const fetchRequests = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_BASE}/api/mentorship/all-requests`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error('Failed to fetch mentorship requests');
+      const data = await res.json();
+      setRequests(data);
+    } catch (err) {
+      setError(err.message || 'Error fetching requests');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRequests();
+  }, []);
+
+  const handleAction = async (id, action) => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_BASE}/api/mentorship/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: action }),
+      });
+      if (!res.ok) throw new Error('Failed to update request');
+      // Optionally, you can use the returned updated request
+      // const updated = await res.json();
+      // setRequests((prev) => prev.map((req) => req._id === id ? updated : req));
+      // But to keep things in sync, just refetch all requests:
+      await fetchRequests();
+    } catch (err) {
+      setError(err.message || 'Error updating request');
+    }
   };
 
   const handleSchedule = (id) => {
     if (!sessionDate[id]) return;
     setRequests((prev) =>
       prev.map((req) =>
-        req.id === id ? { ...req, status: 'scheduled', scheduledDate: sessionDate[id] } : req
+        req._id === id ? { ...req, status: 'scheduled', scheduledDate: sessionDate[id] } : req
       )
     );
     setSessionDate((prev) => ({ ...prev, [id]: '' }));
   };
 
+  if (error) return <div className="p-6 text-red-500">{error}</div>;
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4 text-blue-800">Mentorship Requests</h1>
-      <nav className="mb-8 flex flex-wrap gap-4">
-        <Link to="/educator-dashboard" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Home</Link>
-        <Link to="/educator-dashboard/upload" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Upload Resource</Link>
-        <Link to="/educator-dashboard/manage" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Manage Courses</Link>
-        <Link to="/educator-dashboard/mentorship-requests" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Mentorship Requests</Link>
-        <Link to="/educator-dashboard/forum" className="px-4 py-2 bg-blue-100 rounded hover:bg-blue-200">Forum Participation</Link>
-      </nav>
       <table className="min-w-full bg-white border">
         <thead>
           <tr>
             <th className="py-2 px-4 border">Student</th>
-            <th className="py-2 px-4 border">Topic</th>
+            <th className="py-2 px-4 border">Subject</th>
             <th className="py-2 px-4 border">Requested Date</th>
             <th className="py-2 px-4 border">Status</th>
             <th className="py-2 px-4 border">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {requests.map((req) => (
-            <tr key={req.id}>
-              <td className="py-2 px-4 border">{req.studentName}</td>
-              <td className="py-2 px-4 border">{req.topic}</td>
-              <td className="py-2 px-4 border">{req.requestedDate}</td>
-              <td className="py-2 px-4 border">{req.status}{req.status === 'scheduled' && req.scheduledDate ? ` (on ${req.scheduledDate})` : ''}</td>
-              <td className="py-2 px-4 border">
-                {req.status === 'pending' && (
-                  <>
-                    <button
-                      className="bg-green-500 text-white px-2 py-1 rounded mr-2"
-                      onClick={() => handleAction(req.id, 'accepted')}
-                    >
-                      Accept
-                    </button>
-                    <button
-                      className="bg-red-500 text-white px-2 py-1 rounded mr-2"
-                      onClick={() => handleAction(req.id, 'rejected')}
-                    >
-                      Reject
-                    </button>
-                  </>
-                )}
-                {req.status === 'accepted' && (
-                  <div className="flex items-center">
-                    <input
-                      type="date"
-                      className="border px-2 py-1 mr-2"
-                      value={sessionDate[req.id] || ''}
-                      onChange={(e) => setSessionDate({ ...sessionDate, [req.id]: e.target.value })}
-                    />
-                    <button
-                      className="bg-blue-500 text-white px-2 py-1 rounded"
-                      onClick={() => handleSchedule(req.id)}
-                    >
-                      Schedule
-                    </button>
-                  </div>
-                )}
-                {(req.status === 'rejected' || req.status === 'scheduled') && <span>-</span>}
-              </td>
+          {loading ? (
+            <tr>
+              <td colSpan="5" className="py-4 text-center">Loading requests...</td>
             </tr>
-          ))}
+          ) : requests.length === 0 ? (
+            <tr>
+              <td colSpan="5" className="py-4 text-center">No mentorship requests found.</td>
+            </tr>
+          ) : (
+            requests.map((req) => (
+              <tr key={req._id}>
+                <td className="py-2 px-4 border">{req.student?.name || req.student?.email || 'Unknown'}</td>
+                <td className="py-2 px-4 border">{req.subject || '-'}</td>
+                <td className="py-2 px-4 border">{req.createdAt ? new Date(req.createdAt).toLocaleDateString() : '-'}</td>
+                <td className="py-2 px-4 border">{req.status}{req.status === 'scheduled' && req.scheduledDate ? ` (on ${req.scheduledDate})` : ''}</td>
+                <td className="py-2 px-4 border">
+                  {req.status === 'pending' && (
+                    <>
+                      <button
+                        className="bg-green-500 text-white px-2 py-1 rounded mr-2"
+                        onClick={() => handleAction(req._id, 'accepted')}
+                      >
+                        Accept
+                      </button>
+                      <button
+                        className="bg-red-500 text-white px-2 py-1 rounded mr-2"
+                        onClick={() => handleAction(req._id, 'rejected')}
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
+                  {req.status === 'accepted' && (
+                    <div className="flex items-center">
+                      <input
+                        type="date"
+                        className="border px-2 py-1 mr-2"
+                        value={sessionDate[req._id] || ''}
+                        onChange={(e) => setSessionDate({ ...sessionDate, [req._id]: e.target.value })}
+                      />
+                      <button
+                        className="bg-blue-500 text-white px-2 py-1 rounded"
+                        onClick={() => handleSchedule(req._id)}
+                      >
+                        Schedule
+                      </button>
+                    </div>
+                  )}
+                  {(req.status === 'rejected' || req.status === 'scheduled') && <span>-</span>}
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
