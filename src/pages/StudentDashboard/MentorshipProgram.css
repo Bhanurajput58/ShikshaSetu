@@ -131,6 +131,11 @@
 }
 
 .card-content {
+  display: flex !important;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
   padding: 2rem !important;
 }
 
@@ -152,29 +157,37 @@
 }
 
 .section-title {
-  color: #1e293b !important;
+  color: #3b2a1e !important;
   font-weight: 700 !important;
-  font-size: 1.5rem !important;
+  font-size: 1rem !important;
 }
 
 .section-description {
   color: #64748b !important;
-  margin-bottom: 1.5rem !important;
+  margin-bottom: 1rem !important;
   line-height: 1.6 !important;
 }
 
 /* Apply Section */
 .apply-section {
   text-align: center;
-  padding: 1rem 0;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  min-height: 0;
+  max-height: 60%;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .apply-button {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   color: white !important;
-  padding: 0.75rem 2rem !important;
+  /* padding: 0.75rem 2rem !important; */
   border-radius: 25px !important;
-  font-weight: 600 !important;
+  font-weight: 300 !important;
   text-transform: none !important;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
   transition: all 0.3s ease !important;
@@ -187,18 +200,18 @@
 
 .success-alert {
   border-radius: 12px !important;
-  margin-top: 1rem !important;
+  /* margin-top: 1rem !important; */
 }
 
 /* Mentor Profile */
 .mentor-profile {
-  padding: 1rem 0;
+  /* padding: 1rem 0; */
 }
 
 .mentor-header {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
   gap: 1rem;
 }
 
@@ -457,7 +470,6 @@
   gap: 0.75rem !important;
   color: #1e293b !important;
   font-weight: 700 !important;
-  padding: 2rem 2rem 1rem 2rem !important;
 }
 
 .dialog-icon {
@@ -468,11 +480,27 @@
 }
 
 .dialog-content {
-  padding: 0 2rem 1rem 2rem !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.dialog-content .MuiTextField-root {
+  box-sizing: border-box;
+}
+.dialog-content textarea {
+  resize: vertical !important;
+  min-height: 80px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.dialog-content textarea {
+  scrollbar-width: none; /* Firefox */
+}
+.dialog-content textarea::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .dialog-actions {
-  padding: 1rem 2rem 2rem 2rem !important;
+  padding: 1rem 2rem 2rem 2rem !important; 
   gap: 1rem;
 }
 
@@ -569,4 +597,97 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.apply-section-wrapper,
+.mentor-section-wrapper {
+  /* Ensure both sections have the same height on desktop */
+  display: flex;
+  flex-direction: column;
+}
+
+.apply-section .mentorship-card,
+.mentor-section-wrapper .mentorship-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.mentor-profile {
+  max-height: 320px; /* Match the typical height of apply-section */
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.mentor-profile.fade-bottom::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #fff 90%);
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .apply-section-wrapper .mentorship-card,
+  .mentor-section-wrapper .mentorship-card {
+    height: 340px;
+    min-height: 340px;
+    max-height: 340px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .mentor-profile,
+  .apply-section {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    max-height: unset;
+  }
+}
+
+/* Custom scrollbar for apply-section and mentor-profile */
+.apply-section,
+.mentor-profile {
+  scrollbar-width: thin;
+  scrollbar-color: #c7d2fe #f1f5f9;
+}
+.apply-section::-webkit-scrollbar,
+.mentor-profile::-webkit-scrollbar {
+  width: 8px;
+}
+.apply-section::-webkit-scrollbar-thumb,
+.mentor-profile::-webkit-scrollbar-thumb {
+  background: #c7d2fe;
+  border-radius: 8px;
+}
+.apply-section::-webkit-scrollbar-track,
+.mentor-profile::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 8px;
+}
+
+@media (max-width: 1023px) {
+  .apply-section-wrapper .mentorship-card,
+  .mentor-section-wrapper .mentorship-card {
+    height: auto;
+    min-height: unset;
+    max-height: unset;
+  }
+  .mentor-profile,
+  .apply-section {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+.apply-header-enhanced {
+  margin-bottom: 0.75rem;
 }

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Box, 
-  Typography, 
-  Grid, 
-  Card, 
-  CardContent, 
-  Button, 
-  TextField, 
-  Dialog, 
-  DialogTitle, 
-  DialogContent, 
+import {
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  Button,
+  TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
   DialogActions,
   Avatar,
   Chip,
@@ -21,19 +21,20 @@ import {
   Alert,
   Snackbar
 } from '@mui/material';
-import { 
-  Users, 
-  UserPlus, 
-  Calendar, 
-  MessageCircle, 
-  Star, 
-  Clock, 
-  CheckCircle, 
+import {
+  Users,
+  UserPlus,
+  Calendar,
+  MessageCircle,
+  Star,
+  Clock,
+  CheckCircle,
   XCircle,
   Send,
   Video,
   FileText,
-  Award
+  Award,
+  Linkedin
 } from 'lucide-react';
 import './MentorshipProgram.css';
 import { useAuth } from '../../contexts/AuthContext';
@@ -55,6 +56,7 @@ export default function MentorshipProgram() {
   const [myRequest, setMyRequest] = useState(null);
   const [isUpdateMode, setIsUpdateMode] = useState(false);
   const [confirmCancelOpen, setConfirmCancelOpen] = useState(false);
+  const [profileDialogOpen, setProfileDialogOpen] = useState(false);
 
   // Container styles for responsive layout
   const containerStyle = {
@@ -300,7 +302,7 @@ export default function MentorshipProgram() {
       </div>
 
       {/* Main Content with Responsive Layout */}
-      <div 
+      <div
         className="main-content"
         style={{
           ...containerStyle,
@@ -308,64 +310,89 @@ export default function MentorshipProgram() {
         }}
       >
         {/* Apply for Mentor Section */}
-        <div 
+        {/* Apply for Mentor Section - Enhanced */}
+        <div
           className="apply-section-wrapper"
           style={window.innerWidth > 768 ? applyStyle : { flex: '1 1 100%' }}
         >
           <Card className="mentorship-card">
-            <CardContent className="card-content">
-              <div className="section-header">
-                <UserPlus className="section-icon" />
-                <Typography variant="h5" className="section-title">
-                  Apply for Mentor
-                </Typography>
-              </div>
-              
-              {!myRequest ? (
-                <div className="apply-section">
-                  <Typography className="section-description">
-                    Ready to accelerate your learning? Apply for a mentor who can guide you through your educational journey.
-                  </Typography>
-                  <Button 
-                    variant="contained" 
-                    className="apply-button"
-                    onClick={() => setApplyDialogOpen(true)}
-                    startIcon={<UserPlus />}
-                  >
-                    Apply Now
-                  </Button>
+            <CardContent className="card-content" style={{ padding: 0 }}>
+              {/* Status Indicator Section */}
+              {myRequest && (
+                <div className="apply-status-section">
+                  
+                  <div className="apply-status-indicator">
+                    {myRequest.status === 'pending' ? 'Application Pending' :
+                      myRequest.status === 'approved' ? 'Application Approved' :
+                        myRequest.status}
+                  </div>
                 </div>
-              ) : (
-                <Alert severity={myRequest.status === 'pending' ? 'info' : myRequest.status === 'accepted' ? 'success' : 'warning'} className="success-alert">
-                  <Typography variant="body2">
-                    {myRequest.status === 'accepted' ? (
-                      <>
-                        Congratulations! Your mentorship request has been <b>accepted</b>.<br/>
-                      </>
-                    ) : (
-                      <>
-                        You have already applied for a mentor.<br/>
-                        Status: <b>{myRequest.status}</b>
-                        {myRequest.subject && (<><br/>Subject: {myRequest.subject}</>)}
-                        {myRequest.goals && (<><br/>Goals: {myRequest.goals}</>)}
-                      </>
-                    )}
-                  </Typography>
-                  <Box mt={2} display="flex" gap={1}>
-                    {/* Only show Update button if not accepted */}
-                    {myRequest.status !== 'accepted' && (
-                      <Button variant="outlined" color="primary" onClick={handleUpdateClick}>Update</Button>
-                    )}
-                    <Button variant="outlined" color="error" onClick={handleCancelRequest}>Cancel</Button>
-                  </Box>
-                </Alert>
               )}
+
+              <div className="apply-section-enhanced">
+                <div className="apply-header-enhanced">
+                  <Typography variant="h6" fontWeight={700} className="apply-title-enhanced">
+                    {myRequest ? 'Manage Application' : 'Apply for Mentor'}
+                  </Typography>
+                  <Typography className="apply-description">
+                    {myRequest
+                      ? 'Update your application details or track your mentorship request status.'
+                      : 'Ready to accelerate your learning? Apply for a mentor who can guide you through your educational journey.'
+                    }
+                  </Typography>
+                </div>
+
+                {/* Action Buttons */}
+                <Box display="flex" flexDirection="column" gap={1} width="100%">
+                  {myRequest ? (
+                    <>
+                      <Button
+                        variant="contained"
+                        className="apply-button"
+                        onClick={handleUpdateClick}
+                        startIcon={<FileText size={18} />}
+                        fullWidth
+                      >
+                        Update Application
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        onClick={handleCancelRequest}
+                        startIcon={<XCircle size={18} />}
+                        sx={{
+                          borderColor: '#ef4444 !important',
+                          color: '#ef4444 !important',
+                          borderRadius: '20px !important',
+                          textTransform: 'none !important',
+                          fontWeight: '500 !important',
+                          '&:hover': {
+                            background: 'rgba(239, 68, 68, 0.1) !important',
+                          }
+                        }}
+                        fullWidth
+                      >
+                        Cancel Request
+                      </Button>
+                    </>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      className="apply-button-enhanced"
+                      onClick={() => setApplyDialogOpen(true)}
+                      startIcon={<UserPlus size={18} />}
+                      fullWidth
+                    >
+                      Apply Now
+                    </Button>
+                  )}
+                </Box>
+              </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Assigned Mentor Section */}
-        <div 
+        <div
           className="mentor-section-wrapper"
           style={window.innerWidth > 768 ? mentorStyle : { flex: '1 1 100%' }}
         >
@@ -377,9 +404,9 @@ export default function MentorshipProgram() {
                   Your Mentor
                 </Typography>
               </div>
-              
+
               {myRequest && myRequest.educator ? (
-                <div className="mentor-profile">
+                <div className={`mentor-profile fade-bottom`}>
                   <div className="mentor-header">
                     <Avatar
                       className="mentor-avatar"
@@ -389,20 +416,127 @@ export default function MentorshipProgram() {
                       {myRequest.educator.name?.[0]}
                     </Avatar>
                     <div className="mentor-info">
-                      <Typography variant="h6" className="mentor-name">
-                        {myRequest.educator.name}
-                      </Typography>
-                      <Typography className="mentor-subject">
-                        {myRequest.educator.professionalInfo?.currentPosition || 'Mentor'}
-                      </Typography>
-                      <Typography className="mentor-bio">
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                        <div>
+                          <Typography variant="h6" className="mentor-name" noWrap>
+                            {myRequest.educator.name}
+                          </Typography>
+                          <Typography className="mentor-subject" noWrap>
+                            {myRequest.educator.professionalInfo?.currentPosition || 'Mentor'}
+                          </Typography>
+                        </div>
+                        <Button
+                          variant="outlined"
+                          className="contact-button"
+                          onClick={() => setProfileDialogOpen(true)}
+                          sx={{ ml: 2, whiteSpace: 'nowrap' }}
+                        >
+                          View Full Profile
+                        </Button>
+                      </div>
+                      <Typography className="mentor-bio" sx={{ mb: 1, maxHeight: 60, overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {myRequest.educator.personalInfo?.bio || 'No bio available.'}
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary">
-                        Email: {myRequest.educator.email}
                       </Typography>
                     </div>
                   </div>
+                  {/* Full Profile Dialog */}
+                  <Dialog open={profileDialogOpen} onClose={() => setProfileDialogOpen(false)} maxWidth="sm" fullWidth>
+                    <DialogTitle className="dialog-title">
+                      Mentor Full Profile
+                    </DialogTitle>
+                    <DialogContent className="dialog-content">
+                      <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
+                        <Avatar
+                          className="mentor-avatar"
+                          src={myRequest.educator.personalInfo?.profilePicture || ''}
+                          alt={myRequest.educator.name}
+                          sx={{ width: 100, height: 100 }}
+                        >
+                          {myRequest.educator.name?.[0]}
+                        </Avatar>
+                        <Typography variant="h5" className="mentor-name">
+                          {myRequest.educator.name}
+                        </Typography>
+                        <Typography className="mentor-subject">
+                          {myRequest.educator.professionalInfo?.currentPosition || 'Mentor'}
+                        </Typography>
+                        <Typography className="mentor-bio">
+                          {myRequest.educator.personalInfo?.bio || 'No bio available.'}
+                        </Typography>
+                        {/* Academic Info */}
+                        {myRequest.educator.academicInfo && (
+                          <Box width="100%" mt={2}>
+                            <Typography variant="subtitle1" fontWeight={600}>Academic Info</Typography>
+                            {myRequest.educator.academicInfo.highestQualification && (
+                              <Typography>Qualification: {myRequest.educator.academicInfo.highestQualification}</Typography>
+                            )}
+                            {myRequest.educator.academicInfo.institution && (
+                              <Typography>Institution: {myRequest.educator.academicInfo.institution}</Typography>
+                            )}
+                            {myRequest.educator.academicInfo.specialization && (
+                              <Typography>Specialization: {myRequest.educator.academicInfo.specialization}</Typography>
+                            )}
+                            {myRequest.educator.academicInfo.graduationYear && (
+                              <Typography>Graduation Year: {myRequest.educator.academicInfo.graduationYear}</Typography>
+                            )}
+                          </Box>
+                        )}
+                        {/* Professional Info */}
+                        {myRequest.educator.professionalInfo && (
+                          <Box width="100%" mt={2}>
+                            <Typography variant="subtitle1" fontWeight={600}>Professional Info</Typography>
+                            {myRequest.educator.professionalInfo.currentPosition && (
+                              <Typography>Position: {myRequest.educator.professionalInfo.currentPosition}</Typography>
+                            )}
+                            {myRequest.educator.professionalInfo.department && (
+                              <Typography>Department: {myRequest.educator.professionalInfo.department}</Typography>
+                            )}
+                            {myRequest.educator.professionalInfo.joiningDate && (
+                              <Typography>Joining Date: {myRequest.educator.professionalInfo.joiningDate}</Typography>
+                            )}
+                            {myRequest.educator.professionalInfo.achievements && myRequest.educator.professionalInfo.achievements.length > 0 && (
+                              <Box mt={1}>
+                                <Typography fontWeight={500}>Achievements:</Typography>
+                                <ul>
+                                  {myRequest.educator.professionalInfo.achievements.map((ach, idx) => (
+                                    <li key={idx}><Typography>{ach}</Typography></li>
+                                  ))}
+                                </ul>
+                              </Box>
+                            )}
+                            {myRequest.educator.professionalInfo.skills && myRequest.educator.professionalInfo.skills.length > 0 && (
+                              <Box mt={1}>
+                                <Typography fontWeight={500}>Skills:</Typography>
+                                <Box display="flex" flexWrap="wrap" gap={1}>
+                                  {myRequest.educator.professionalInfo.skills.map((skill, idx) => (
+                                    <Chip key={idx} label={skill} className="skill-chip" />
+                                  ))}
+                                </Box>
+                              </Box>
+                            )}
+                          </Box>
+                        )}
+                        {/* Public Social Links */}
+                        {myRequest.educator.personalInfo && (
+                          <Box width="100%" mt={2}>
+                            <Typography variant="subtitle1" fontWeight={600}>Social Links</Typography>
+                            {myRequest.educator.personalInfo.socialLinks?.linkedin && (
+                              <Box display="flex" alignItems="center" gap={1}>
+                                <Linkedin size={18} />
+                                <a href={myRequest.educator.personalInfo.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
+                                  LinkedIn
+                                </a>
+                              </Box>
+                            )}
+                            {/* Add more public links if available */}
+                          </Box>
+                        )}
+                      </Box>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={() => setProfileDialogOpen(false)} color="primary">Close</Button>
+                    </DialogActions>
+                  </Dialog>
                 </div>
               ) : (
                 <div className="empty-state">
@@ -420,7 +554,7 @@ export default function MentorshipProgram() {
         </div>
 
         {/* Sessions Tracking Section */}
-        <div 
+        <div
           className="sessions-section-wrapper"
           style={window.innerWidth > 768 ? sessionsStyle : { flex: '1 1 100%' }}
         >
@@ -432,7 +566,7 @@ export default function MentorshipProgram() {
                   Session Tracking
                 </Typography>
               </div>
-              
+
               {sessions.length > 0 ? (
                 <div className="sessions-container">
                   {/* Sessions will be rendered here dynamically */}
@@ -454,8 +588,8 @@ export default function MentorshipProgram() {
       </div>
 
       {/* Apply for Mentor Dialog */}
-      <Dialog 
-        open={applyDialogOpen} 
+      <Dialog
+        open={applyDialogOpen}
         onClose={() => setApplyDialogOpen(false)}
         maxWidth="md"
         fullWidth
@@ -466,62 +600,59 @@ export default function MentorshipProgram() {
           {isUpdateMode ? 'Update Application' : 'Apply for a Mentor'}
         </DialogTitle>
         <DialogContent className="dialog-content">
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
+          <Grid container spacing={2} alignItems="stretch">
+            <Grid item xs={6} sm={6}>
               <TextField
                 fullWidth
                 label="Subject/Field of Interest"
                 value={applicationForm.subject}
-                onChange={(e) => setApplicationForm({...applicationForm, subject: e.target.value})}
+                onChange={(e) => setApplicationForm({ ...applicationForm, subject: e.target.value })}
                 placeholder="e.g., Computer Science, Mathematics, Business"
+                InputProps={{ style: { height: 60 } }}
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                multiline
-                rows={3}
-                label="Learning Goals"
-                value={applicationForm.goals}
-                onChange={(e) => setApplicationForm({...applicationForm, goals: e.target.value})}
-                placeholder="What do you want to achieve through mentorship?"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                multiline
-                rows={2}
-                label="Current Experience Level"
-                value={applicationForm.experience}
-                onChange={(e) => setApplicationForm({...applicationForm, experience: e.target.value})}
-                placeholder="Describe your current knowledge and experience"
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} sm={6}>
               <TextField
                 fullWidth
                 label="Preferred Availability"
                 value={applicationForm.availability}
-                onChange={(e) => setApplicationForm({...applicationForm, availability: e.target.value})}
+                onChange={(e) => setApplicationForm({ ...applicationForm, availability: e.target.value })}
                 placeholder="e.g., Weekdays 6-8 PM, Weekends"
+                InputProps={{ style: { height: 60 } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
-                label="Preferred Mentor Type (Optional)"
-                value={applicationForm.preferredMentor}
-                onChange={(e) => setApplicationForm({...applicationForm, preferredMentor: e.target.value})}
-                placeholder="e.g., Industry professional, Academic"
+                multiline
+                minRows={1}
+                maxRows={8}
+                label="Learning Goals"
+                value={applicationForm.goals}
+                onChange={(e) => setApplicationForm({ ...applicationForm, goals: e.target.value })}
+                placeholder="What do you want to achieve through mentorship?"
+                InputProps={{ style: { resize: 'vertical',width:"300px" } }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                multiline
+                minRows={1}
+                maxRows={8}
+                label="Current Experience Level"
+                value={applicationForm.experience}
+                onChange={(e) => setApplicationForm({ ...applicationForm, experience: e.target.value })}
+                placeholder="Describe your current knowledge and experience"
+                InputProps={{ style: { resize: 'vertical',width:"300px" } }}
               />
             </Grid>
           </Grid>
         </DialogContent>
         <DialogActions className="dialog-actions">
-          <Button onClick={() => { 
-            setApplyDialogOpen(false); 
-            setIsUpdateMode(false); 
+          <Button onClick={() => {
+            setApplyDialogOpen(false);
+            setIsUpdateMode(false);
             setApplicationForm({
               subject: '',
               goals: '',
@@ -532,8 +663,8 @@ export default function MentorshipProgram() {
           }}>
             Cancel
           </Button>
-          <Button 
-            onClick={isUpdateMode ? handleUpdateSubmit : handleApplySubmit} 
+          <Button
+            onClick={isUpdateMode ? handleUpdateSubmit : handleApplySubmit}
             variant="contained"
             startIcon={<Send />}
           >
