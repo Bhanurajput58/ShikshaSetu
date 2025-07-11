@@ -1,108 +1,646 @@
-/* Container and Title */
-.mentorship-container {
-  max-width: 900px;
-  margin: 40px auto;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-  padding: 32px 24px 24px 24px;
+/* Base Styles */
+* {
+  box-sizing: border-box;
 }
 
-.mentorship-title {
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+::-webkit-scrollbar-corner {
+  background: #f1f5f9;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+/* Container and Layout */
+.mentorship-requests-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  padding-top: -1rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  min-height: 500px;
+}
+
+/* Header Section */
+.mentorship-requests-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.mentorship-requests-title {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 28px;
-  color: #2d3748;
-  text-align: center;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-/* Table Styles */
-.mentorship-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fafbfc;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+.mentorship-requests-title-icon {
+  font-size: 2rem;
 }
 
-.mentorship-th, .mentorship-td {
-  padding: 14px 12px;
-  text-align: left;
-}
-
-.mentorship-th {
-  background: #f3f4f6;
-  font-weight: 600;
-  color: #374151;
-  border-bottom: 2px solid #e5e7eb;
-}
-
-.mentorship-td {
-  border-bottom: 1px solid #e5e7eb;
-  color: #444;
-}
-
-.mentorship-table tr:last-child .mentorship-td {
-  border-bottom: none;
-}
-
-/* Button Styles */
-.mentorship-btn {
-  padding: 7px 16px;
-  margin: 0 4px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-
-.mentorship-btn-accept {
-  background: #22c55e;
-  color: #fff;
-}
-.mentorship-btn-accept:hover {
-  background: #16a34a;
-}
-
-.mentorship-btn-reject {
-  background: #ef4444;
-  color: #fff;
-}
-.mentorship-btn-reject:hover {
-  background: #b91c1c;
-}
-
-.mentorship-btn-schedule {
-  background: #3b82f6;
-  color: #fff;
-}
-.mentorship-btn-schedule:hover {
-  background: #1d4ed8;
-}
-
-.mentorship-schedule {
+.mentorship-requests-refresh-btn {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.mentorship-date-input {
-  padding: 6px 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  font-size: 1rem;
+/* Table Styles */
+.mentorship-requests-table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
 }
 
-/* Loading and Error States */
-.mentorship-loading, .mentorship-error {
-  text-align: center;
-  font-size: 1.2rem;
-  margin: 40px 0;
+.mentorship-requests-table-container::-webkit-scrollbar {
+  height: 6px;
 }
 
-.mentorship-error {
-  color: #ef4444;
+.mentorship-requests-table-container::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.mentorship-requests-table-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.mentorship-requests-table-container::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.mentorship-requests-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mentorship-requests-th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 500;
+  padding: 6px 16px;
+  text-align: left;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.mentorship-requests-td {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+
+.mentorship-requests-row:hover {
+  background: #f8fafc;
+  transition: background-color 0.2s ease;
+}
+
+.mentorship-requests-row:last-child .mentorship-requests-td {
+  border-bottom: none;
+}
+
+/* Student Info */
+.mentorship-requests-student-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mentorship-requests-student-name {
   font-weight: 600;
-} 
+  color: #334155;
+}
+
+/* Subject Tag */
+.mentorship-requests-subject-tag {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Status Badges */
+.mentorship-requests-status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mentorship-requests-status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.mentorship-requests-status-accepted {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.mentorship-requests-status-rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.mentorship-requests-status-scheduled {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.mentorship-requests-status-cancelled {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+/* Additional Status Info */
+.mentorship-requests-cancel-reason {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #fef2f2;
+  border-radius: 8px;
+  border-left: 3px solid #ef4444;
+}
+
+.mentorship-requests-cancel-reason small {
+  color: #dc2626;
+  font-style: italic;
+}
+
+.mentorship-requests-scheduled-date {
+  margin-top: 8px;
+  padding: 4px 8px;
+  background: #eff6ff;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.mentorship-requests-scheduled-date small {
+  color: #2563eb;
+  font-weight: 500;
+  font-size: 0.76rem;
+}
+
+/* Action Buttons */
+.mentorship-requests-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.mentorship-requests-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mentorship-requests-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mentorship-requests-btn-icon {
+  font-size: 0.875rem;
+}
+
+.mentorship-requests-btn-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.mentorship-requests-btn-primary:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.mentorship-requests-btn-secondary {
+  background: #6b7280;
+  color: white;
+}
+
+.mentorship-requests-btn-secondary:hover:not(:disabled) {
+  background: #4b5563;
+  transform: translateY(-1px);
+}
+
+.mentorship-requests-btn-accept {
+  background: #10b981;
+  color: white;
+}
+
+.mentorship-requests-btn-accept:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.mentorship-requests-btn-reject {
+  background: #ef4444;
+  color: white;
+}
+
+.mentorship-requests-btn-reject:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.mentorship-requests-btn-schedule {
+  background: #6366f1;
+  color: white;
+}
+
+.mentorship-requests-btn-schedule:hover:not(:disabled) {
+  background: #4f46e5;
+  transform: translateY(-1px);
+}
+
+.mentorship-requests-btn-cancel {
+  background: #f59e0b;
+  color: white;
+}
+
+.mentorship-requests-btn-cancel:hover:not(:disabled) {
+  background: #d97706;
+  transform: translateY(-1px);
+}
+
+.mentorship-requests-btn-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.mentorship-requests-btn-danger:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* Schedule Section */
+.mentorship-requests-schedule-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mentorship-requests-schedule-input-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mentorship-requests-date-input {
+  padding: 8px 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+  background: #fff;
+}
+
+.mentorship-requests-date-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.mentorship-requests-date-input[type='date'] {
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  padding-right: 32px;
+  position: relative;
+}
+
+.mentorship-requests-date-input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(180deg);
+  cursor: pointer;
+}
+
+.mentorship-requests-no-actions {
+  color: #6b7280;
+  font-style: italic;
+  font-size: 0.875rem;
+}
+
+/* Loading States */
+.mentorship-requests-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.mentorship-requests-loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.mentorship-requests-loading-container p {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Error States */
+.mentorship-requests-error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.mentorship-requests-error-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.mentorship-requests-error-container h2 {
+  color: #ef4444;
+  margin-bottom: 8px;
+}
+
+.mentorship-requests-error-container p {
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+/* Empty State */
+.mentorship-requests-empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #6b7280;
+}
+
+.mentorship-requests-empty-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.mentorship-requests-empty-state h3 {
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.mentorship-requests-empty-state p {
+  margin: 0;
+}
+
+/* Modal Styles */
+.mentorship-requests-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.mentorship-requests-modal-content {
+  background: white;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.mentorship-requests-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mentorship-requests-modal-content::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.mentorship-requests-modal-content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.mentorship-requests-modal-content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.mentorship-requests-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.mentorship-requests-modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.mentorship-requests-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 4px;
+  color: #6b7280;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.mentorship-requests-modal-close:hover {
+  background: #f3f4f6;
+}
+
+.mentorship-requests-modal-body {
+  padding: 24px;
+}
+
+.mentorship-requests-form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.mentorship-requests-form-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s ease;
+  background: #fff;
+}
+
+.mentorship-requests-form-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.mentorship-requests-modal-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 16px 24px 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.mentorship-requests-detail-section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #3b82f6;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.mentorship-requests-detail-row {
+  margin-bottom: 8px;
+  color: #374151;
+  font-size: 0.97rem;
+}
+.mentorship-requests-detail-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 18px 0 14px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mentorship-requests-container {
+    margin: 10px;
+    padding: 16px;
+  }
+
+  .mentorship-requests-header-section {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .mentorship-requests-title {
+    font-size: 2rem;
+  }
+
+  .mentorship-requests-table-container {
+    font-size: 0.875rem;
+  }
+
+  .mentorship-requests-th,
+  .mentorship-requests-td {
+    padding: 12px 8px;
+  }
+
+  .mentorship-requests-action-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mentorship-requests-schedule-section {
+    width: 100%;
+  }
+
+  .mentorship-requests-schedule-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mentorship-requests-modal-content {
+    margin: 10px;
+  }
+
+  .mentorship-requests-modal-footer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .mentorship-requests-table {
+    font-size: 0.8rem;
+  }
+  
+  .mentorship-requests-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .mentorship-requests-th,
+  .mentorship-requests-td {
+    padding: 8px 6px;
+  }
+}
