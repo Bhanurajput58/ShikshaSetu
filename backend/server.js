@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
 import courseRoutes from './routes/courses.js';
@@ -34,6 +35,22 @@ app.use(cors({
 
 // Body parser middleware
 app.use(express.json());
+
+// Ensure database is connected before API routes (required on Vercel serverless)
+app.use('/api', async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error('Database middleware error:', error.message);
+    return res.status(500).json({ message: 'Database connection failed. Please try again.' });
+  }
+});
+
+// Health check for deployment debugging
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected' });
+});
 
 // Base route
 app.get('/', (req, res) => {
