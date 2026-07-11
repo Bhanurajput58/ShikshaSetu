@@ -35,7 +35,7 @@ import {
   Video,
   FileText,
   Award,
-  Linkedin
+  Link
 } from 'lucide-react';
 import './MentorshipProgram.css';
 import { useAuth } from '../../contexts/AuthContext';
@@ -534,7 +534,7 @@ export default function MentorshipProgram() {
                             <Typography variant="subtitle1" fontWeight={600}>Social Links</Typography>
                             {myRequest.educator.personalInfo.socialLinks?.linkedin && (
                               <Box display="flex" alignItems="center" gap={1}>
-                                <Linkedin size={18} />
+                                <Link size={18} />
                                 <a href={myRequest.educator.personalInfo.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
                                   LinkedIn
                                 </a>
