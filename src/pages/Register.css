@@ -1,0 +1,503 @@
+/* Register Page Styles */
+.register-container {
+  height: 100vh;
+  background: white;
+  padding: 0;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  position: fixed;
+  top: 78px; /* Position below header */
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.register-grid {
+  height: 100vh;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+}
+
+.register-container-container {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.register-grid-item {
+  width: 50%;
+  flex: 0 0 50%;
+}
+
+.register-illustration-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  height: 100vh;
+  width: 100%;
+}
+
+.register-illustration {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.register-illustration-title {
+  margin-top: 1.5rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.register-illustration-subtitle {
+  margin-top: 0.5rem;
+  color: #64748b;
+  text-align: center;
+  max-width: 300px;
+  font-size: 0.9rem;
+}
+
+.register-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  height: 100vh;
+  width: 100%;
+}
+
+.register-form-paper {
+  width: 100%;
+  max-width: 100%;
+  padding: 1rem 1.5rem 2rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.register-title {
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.75rem;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.register-alert {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.register-tabs {
+  margin-bottom: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 0.25rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.register-tabs .MuiTab-root {
+  font-weight: 500;
+  text-transform: none;
+  font-size: 0.9rem;
+  min-height: 48px;
+  color: #64748b;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.register-tabs .MuiTab-root::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.register-tabs .MuiTab-root:hover::before {
+  left: 100%;
+}
+
+.register-tabs .MuiTab-root:hover {
+  background: rgba(25, 118, 210, 0.08);
+  transform: translateY(-2px);
+}
+
+.register-tabs .Mui-selected {
+  color: #1976d2;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.register-tabs .MuiTabs-indicator {
+  display: none;
+}
+
+.register-text-field {
+  margin-bottom: 1rem;
+}
+
+.register-text-field .MuiOutlinedInput-root {
+  border-radius: 12px;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.register-text-field .MuiOutlinedInput-root:hover {
+  background: #e9ecef;
+  border-color: rgba(241, 244, 246, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.register-text-field .MuiOutlinedInput-root.Mui-focused {
+  background: white;
+  box-shadow: 0 0 0 3px rgba(21, 22, 22, 0.2);
+  border-color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.register-text-field .MuiOutlinedInput-root.Mui-error {
+  background: #fff5f5;
+  border-color: #f56565;
+}
+
+.register-text-field .MuiOutlinedInput-root.Mui-error:hover {
+  background: #fed7d7;
+  border-color: #e53e3e;
+}
+
+.register-text-field .MuiOutlinedInput-root .MuiInputAdornment-root {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.register-text-field .MuiOutlinedInput-root .MuiInputAdornment-positionEnd {
+  margin-left: 0;
+  margin-right: 0;
+  width: auto;
+}
+
+.register-text-field .MuiOutlinedInput-root .MuiInputAdornment-positionEnd:empty {
+  display: none;
+}
+
+.register-button {
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: none;
+  font-size: 1rem;
+  padding: 12px 24px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.register-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.register-button:hover::before {
+  left: 100%;
+}
+
+.register-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.register-button:disabled {
+  background: #e0e0e0;
+  color: #9e9e9e;
+  box-shadow: none;
+  transform: none;
+}
+
+.register-button:disabled::before {
+  display: none;
+}
+
+.register-login-link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.register-login-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  transition: width 0.3s ease;
+}
+
+.register-login-link:hover::after {
+  width: 100%;
+}
+
+.register-login-link:hover {
+  color: #1565c0;
+}
+
+.register-mobile-image-container {
+  display: none;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.register-mobile-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: contain;
+}
+
+.register-progress-container {
+  margin-bottom: 0.05rem;
+}
+
+.register-progress-text {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.register-social-divider {
+  margin: 1.5rem 0;
+  text-align: center;
+  position: relative;
+}
+
+.register-social-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.register-social-divider span {
+  background: white;
+  padding: 0 1rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.register-social-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.register-social-button {
+  border-radius: 8px;
+  text-transform: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.register-social-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.register-terms-checkbox {
+  margin-bottom: 1rem;
+}
+
+.register-terms-checkbox .MuiFormControlLabel-label {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.register-terms-checkbox a {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-terms-checkbox a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 960px) {
+  .register-container {
+    padding: 0.125rem 0.0625rem;
+    height: 100vh;
+  }
+  
+  .register-form-paper {
+    padding: 1.5rem 1rem;
+    margin: 0 0.125rem;
+    max-height: 85vh;
+  }
+  
+  .register-form-container {
+    background: white;
+  }
+  
+  .register-illustration-container {
+    padding: 0.125rem;
+  }
+  
+  .register-illustration {
+    max-width: 300px;
+    max-height: 250px;
+  }
+  
+  .register-illustration-title {
+    font-size: 1.25rem;
+  }
+  
+  .register-illustration-subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .register-social-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .register-form-paper {
+    padding: 1rem 0.75rem;
+    margin: 0 0.0625rem;
+    max-height: 80vh;
+  }
+  
+  .register-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .register-tabs .MuiTab-root {
+    font-size: 0.8rem;
+    min-height: 40px;
+  }
+  
+  .register-text-field {
+    margin-bottom: 0.75rem;
+  }
+  
+  .register-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .register-illustration {
+    max-width: 250px;
+    max-height: 200px;
+  }
+  
+  .register-illustration-title {
+    font-size: 1.125rem;
+  }
+  
+  .register-illustration-subtitle {
+    font-size: 0.8rem;
+  }
+}
+
+/* Responsive display for mobile image */
+@media (max-width: 960px) {
+  .register-illustration-container {
+    display: none;
+  }
+  
+  .register-mobile-image-container {
+    display: block;
+  }
+}
+
+@media (min-width: 961px) {
+  .register-illustration-container {
+    display: flex;
+  }
+  
+  .register-mobile-image-container {
+    display: none;
+  }
+}
+
+/* Custom scrollbar for the page */
+.register-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.register-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.register-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.register-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Form paper scrollbar */
+.register-form-paper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.register-form-paper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.register-form-paper::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 2px;
+}
+
+.register-form-paper::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
