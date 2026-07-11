@@ -77,8 +77,8 @@
 .about-title .highlight {
   background: linear-gradient(135deg, #e5bcbc 0%, #ea580c 50%, #f1bd62 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-weight: 900;
   text-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
   animation: aboutHighlightGlow 3s ease-in-out infinite alternate;
@@ -226,6 +226,7 @@
   font-size: 2.5rem !important;
   background: linear-gradient(135deg, #edeff2 0%, #688ec4 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -280,6 +281,7 @@
   margin-bottom: 12px !important;
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -359,6 +361,7 @@
   margin-bottom: 8px !important;
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -400,6 +403,14 @@
   
   .about-impact-stats {
     gap: 32px;
+  }
+  
+  .about-vision-card,
+  .about-mission-card,
+  .about-values-card,
+  .about-goals-card,
+  .about-approach-card {
+    padding: 40px 24px !important;
   }
 }
 
@@ -443,6 +454,14 @@
   .about-stat-item {
     padding: 16px;
   }
+  
+  .about-offering-item {
+    padding: 16px;
+  }
+  
+  .about-offering-icon {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -478,6 +497,22 @@
     flex-direction: column;
     gap: 16px;
   }
+  
+  .about-section-title {
+    font-size: 1.75rem !important;
+  }
+  
+  .about-card-icon {
+    font-size: 2.5rem;
+  }
+  
+  .about-card-title {
+    font-size: 1.25rem !important;
+  }
+  
+  .about-card-description {
+    font-size: 1rem !important;
+  }
 }
 
 /* Accessibility improvements */
@@ -488,6 +523,29 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Additional responsive improvements */
+@media (max-width: 360px) {
+  .about-title {
+    font-size: 1.75rem !important;
+  }
+  
+  .about-subtitle {
+    font-size: 1rem !important;
+  }
+  
+  .about-section-title {
+    font-size: 1.5rem !important;
+  }
+  
+  .about-card-icon {
+    font-size: 2rem;
+  }
+  
+  .about-offering-icon {
+    font-size: 1.75rem;
   }
 }
 

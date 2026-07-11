@@ -224,6 +224,10 @@
   .welcome-subtitle {
     font-size: 0.9rem;
   }
+  
+  .login-form-container h4 {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 600px) {
@@ -247,6 +251,19 @@
     min-height: 40px;
     margin: 0 0.125rem;
   }
+  
+  .login-text-field {
+    margin-bottom: 1rem;
+  }
+  
+  .login-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+  
+  .login-form-container h4 {
+    font-size: 1.25rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -254,6 +271,23 @@
     font-size: 0.8rem;
     min-height: 36px;
     padding: 6px 8px;
+  }
+  
+  .login-form-paper {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .login-form-container h4 {
+    font-size: 1.125rem;
+    }
+  
+  .login-button {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+  }
+  
+  .login-text-field .MuiInputBase-input {
+    font-size: 0.875rem;
   }
 }
 
@@ -287,4 +321,49 @@
 
 .login-container::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+
+/* Additional responsive improvements */
+@media (max-width: 360px) {
+  .login-form-paper {
+    padding: 0.5rem 0.25rem;
+  }
+  
+  .login-form-container h4 {
+    font-size: 1rem;
+  }
+  
+  .login-tabs .MuiTab-root {
+    font-size: 0.75rem;
+    min-height: 32px;
+    padding: 4px 6px;
+  }
+  
+  .login-text-field .MuiInputLabel-root {
+    font-size: 0.75rem;
+  }
+  
+  .login-text-field .MuiInputBase-input {
+    font-size: 0.75rem;
+  }
+  
+  .login-button {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+  }
+  
+  .login-register-link {
+    font-size: 0.75rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 } 

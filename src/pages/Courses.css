@@ -96,8 +96,8 @@
   animation: coursesTitleGlow 3s ease-in-out infinite alternate;
   background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 25%, #e2e8f0 50%, #cbd5e1 75%, #94a3b8 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 @keyframes coursesTitleGlow {
@@ -163,6 +163,7 @@
   font-size: 1.5rem;
   background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -273,6 +274,7 @@
   line-height: 1.3;
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -393,6 +395,10 @@
   .courses-filter-select {
     min-width: 180px;
   }
+  
+  .courses-hero .courses-hero-content {
+    padding: 32px 24px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -430,6 +436,14 @@
   .courses-course-card:hover {
     transform: translateY(-8px);
   }
+  
+  .courses-hero .courses-hero-content {
+    padding: 24px 20px;
+  }
+  
+  .courses-course-chips {
+    flex-wrap: wrap;
+  }
 }
 
 @media (max-width: 480px) {
@@ -457,6 +471,15 @@
   .courses-course-title {
     font-size: 1.25rem !important;
   }
+  
+  .courses-filter-title {
+    font-size: 1.25rem;
+  }
+  
+  .courses-course-link {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* Accessibility improvements */
@@ -467,6 +490,35 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Additional responsive improvements */
+@media (max-width: 360px) {
+  .courses-title {
+    font-size: 1.75rem;
+  }
+  
+  .courses-subtitle {
+    font-size: 1rem;
+  }
+  
+  .courses-filter-title {
+    font-size: 1.125rem;
+  }
+  
+  .courses-course-title {
+    font-size: 1.125rem !important;
+  }
+  
+  .courses-course-chip {
+    font-size: 0.625rem !important;
+    padding: 4px 8px !important;
+  }
+  
+  .courses-course-link {
+    font-size: 0.75rem !important;
+    padding: 10px 16px !important;
   }
 }
 

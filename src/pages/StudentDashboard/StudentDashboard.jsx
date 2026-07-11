@@ -1,5 +1,5 @@
-import { Box, Typography, Grid, Card, CardContent, LinearProgress, List, ListItem, ListItemText, Button, CircularProgress } from '@mui/material';
-import { BookOpen, TrendingUp, ExternalLink, GraduationCap, MessageCircle } from 'lucide-react';
+import { Box, Typography, Grid, Card, CardContent, LinearProgress, List, ListItem, ListItemText, Button, CircularProgress, Chip, Avatar } from '@mui/material';
+import { BookOpen, TrendingUp, ExternalLink, GraduationCap, MessageCircle, Clock, Award, Target, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -10,6 +10,9 @@ export default function StudentDashboard() {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [timeSpent, setTimeSpent] = useState('0h');
+  const [streak, setStreak] = useState(0);
+  const [achievements, setAchievements] = useState([]);
 
   useEffect(() => {
     const fetchStudentData = async () => {
@@ -33,6 +36,15 @@ export default function StudentDashboard() {
 
         const studentData = await response.json();
         setStudent(studentData);
+        
+        // Set mock additional data
+        setTimeSpent(studentData.timeSpent || '12h');
+        setStreak(studentData.streak || 5);
+        setAchievements(studentData.achievements || [
+          { id: 1, title: 'First Course', icon: '🎯', color: '#3b82f6' },
+          { id: 2, title: 'Quick Learner', icon: '⚡', color: '#f59e0b' },
+          { id: 3, title: '7 Day Streak', icon: '🔥', color: '#ef4444' }
+        ]);
       } catch (err) {
         console.error('Error fetching student data:', err);
         setError(err.message);
@@ -76,9 +88,49 @@ export default function StudentDashboard() {
           <Typography variant="h6" className="welcome-subtitle">
             Continue your learning journey and track your progress
           </Typography>
+          <div className="quick-stats">
+            <div className="quick-stat-item">
+              <Clock size={20} className="quick-stat-icon" />
+              <span className="quick-stat-value">{timeSpent}</span>
+              <span className="quick-stat-label">Time Spent</span>
+            </div>
+            <div className="quick-stat-item">
+              <Award size={20} className="quick-stat-icon" />
+              <span className="quick-stat-value">{achievements.length}</span>
+              <span className="quick-stat-label">Achievements</span>
+            </div>
+            <div className="quick-stat-item">
+              <Target size={20} className="quick-stat-icon" />
+              <span className="quick-stat-value">{streak}</span>
+              <span className="quick-stat-label">Day Streak</span>
+            </div>
+          </div>
         </div>
         <div className="hero-icon">
           <GraduationCap size={64} />
+        </div>
+      </div>
+
+      {/* Achievements Section */}
+      <div className="achievements-section">
+        <Typography variant="h5" className="achievements-title">
+          Your Achievements
+        </Typography>
+        <div className="achievements-list">
+          {achievements.map((achievement) => (
+            <div key={achievement.id} className="achievement-item" style={{ '--achievement-color': achievement.color }}>
+              <div className="achievement-icon">{achievement.icon}</div>
+              <Typography className="achievement-name">{achievement.title}</Typography>
+            </div>
+          ))}
+          {achievements.length === 0 && (
+            <div className="achievements-empty">
+              <Award size={32} className="achievements-empty-icon" />
+              <Typography className="achievements-empty-text">
+                Complete courses to earn achievements!
+              </Typography>
+            </div>
+          )}
         </div>
       </div>
 
@@ -92,6 +144,11 @@ export default function StudentDashboard() {
                 <Typography variant="h5" className="section-title">
                   Your Learning Path
                 </Typography>
+                <Chip 
+                  label={`${student?.enrolledCourses?.length || 0} Courses`}
+                  size="small"
+                  className="course-count-chip"
+                />
               </div>
               
               {!student?.enrolledCourses || student.enrolledCourses.length === 0 ? (
@@ -117,6 +174,12 @@ export default function StudentDashboard() {
                             <TrendingUp size={16} />
                             <span>{course.progress || 0}%</span>
                           </div>
+                          {course.lastAccessed && (
+                            <div className="last-accessed">
+                              <Calendar size={12} />
+                              <span>{course.lastAccessed}</span>
+                            </div>
+                          )}
                         </div>
                         
                         <div className="progress-container">

@@ -82,8 +82,8 @@
 .home-title .hindi-text {
   background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-weight: 900;
   text-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
   animation: homeHindiGlow 3s ease-in-out infinite alternate;
@@ -98,8 +98,8 @@
 .home-title .english-text {
   background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-weight: 900;
   text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
   animation: homeEnglishGlow 3s ease-in-out infinite alternate;
@@ -293,6 +293,7 @@
   margin-bottom: 12px !important;
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -330,6 +331,7 @@
   font-size: 3rem !important;
   background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -349,6 +351,7 @@
   color: #efe1e1 !important;
   background: none !important;
   -webkit-background-clip: unset !important;
+  background-clip: unset !important;
   -webkit-text-fill-color: unset !important;
 }
 
@@ -438,6 +441,7 @@
   color: white !important;
   background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -508,6 +512,7 @@
   font-size: 2rem !important;
   background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -553,6 +558,17 @@
   .home-section-title {
     font-size: 2.5rem !important;
   }
+  
+  .home-cta-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .home-cta-btn {
+    width: 100%;
+    max-width: 300px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -584,6 +600,10 @@
   .home-feature-card:hover {
     transform: translateY(-8px);
   }
+  
+  .home-features-section .MuiGrid-container {
+    flex-wrap: wrap !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -614,6 +634,19 @@
   .home-testimonial-card {
     padding: 24px !important;
   }
+  
+  .home-footer {
+    padding: 80px 16px;
+  }
+  
+  .home-footer-quote {
+    font-size: 1.5rem !important;
+  }
+  
+  .home-explore-btn {
+    font-size: 1rem !important;
+    padding: 14px 32px !important;
+  }
 }
 
 /* Accessibility improvements */
@@ -621,9 +654,29 @@
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms;
-    animation-iteration-count: 1;
-    transition-duration: 0.01ms;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Additional responsive improvements */
+@media (max-width: 360px) {
+  .home-title {
+    font-size: 1.75rem;
+  }
+  
+  .home-subtitle {
+    font-size: 1rem;
+  }
+  
+  .home-cta-btn {
+    font-size: 1rem !important;
+    padding: 14px 24px !important;
+  }
+  
+  .home-section-title {
+    font-size: 1.5rem !important;
   }
 }
 

@@ -4,15 +4,26 @@ import { useAuth } from '../contexts/AuthContext';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Typography from '@mui/material/Typography';
 import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
 import LogoutIcon from '@mui/icons-material/Logout';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import './StudentNav.css';
 
 const StudentNav = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef();
 
   const navItems = [
@@ -55,11 +66,77 @@ const StudentNav = () => {
     setAnchorEl(null);
   };
 
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const handleMobileNavClick = (path) => {
+    navigate(path);
+    setMobileOpen(false);
+  };
+
+  const drawerContent = (
+    <div className="mobile-drawer-content">
+      <div className="mobile-drawer-header">
+        <div className="mobile-drawer-user-info">
+          <Avatar
+            src={user?.profilePicture || "https://ui-avatars.com/api/?name=Profile&background=667eea&color=fff"}
+            alt="Profile"
+            className="mobile-drawer-avatar"
+          />
+          <div className="mobile-drawer-user-details">
+            <Typography variant="h6" className="mobile-drawer-user-name">
+              {user?.name || 'User'}
+            </Typography>
+            <Typography variant="body2" className="mobile-drawer-user-role">
+              Student
+            </Typography>
+          </div>
+        </div>
+        <IconButton onClick={handleDrawerToggle} className="mobile-drawer-close">
+          <CloseIcon />
+        </IconButton>
+      </div>
+      <List className="mobile-drawer-nav">
+        {navItems.map((item) => (
+          <ListItem
+            key={item.path}
+            button
+            onClick={() => handleMobileNavClick(item.path)}
+            className={`mobile-drawer-item ${
+              location.pathname === item.path ? 'mobile-drawer-item-active' : ''
+            }`}
+          >
+            <ListItemIcon className="mobile-drawer-item-icon">
+              <span className="mobile-nav-icon">{item.icon}</span>
+            </ListItemIcon>
+            <ListItemText primary={item.label} className="mobile-drawer-item-text" />
+          </ListItem>
+        ))}
+      </List>
+      <div className="mobile-drawer-footer">
+        <ListItem button onClick={handleProfile} className="mobile-drawer-footer-item">
+          <ListItemIcon>
+            <PersonIcon />
+          </ListItemIcon>
+          <ListItemText primary="My Profile" />
+        </ListItem>
+        <ListItem button onClick={handleLogout} className="mobile-drawer-footer-item logout">
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
+      </div>
+    </div>
+  );
+
   return (
     <nav className="bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex space-x-8">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.path}
@@ -75,8 +152,21 @@ const StudentNav = () => {
               </Link>
             ))}
           </div>
+          
+          {/* Mobile Menu Button */}
+          <div className="flex md:hidden items-center">
+            <IconButton
+              onClick={handleDrawerToggle}
+              className="mobile-menu-button"
+              edge="start"
+            >
+              <MenuIcon />
+            </IconButton>
+          </div>
+          
+          {/* Desktop User Section */}
           <div
-            className="flex items-center"
+            className="hidden md:flex items-center"
             onMouseEnter={handleAvatarMouseEnter}
             onMouseLeave={handleAvatarMouseLeave}
           >
@@ -121,6 +211,19 @@ const StudentNav = () => {
           </div>
         </div>
       </div>
+      
+      {/* Mobile Drawer */}
+      <Drawer
+        anchor="left"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        className="mobile-drawer"
+        PaperProps={{
+          className: 'mobile-drawer-paper'
+        }}
+      >
+        {drawerContent}
+      </Drawer>
     </nav>
   );
 };
