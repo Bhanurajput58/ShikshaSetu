@@ -515,4 +515,23 @@
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%) !important;
     border-color: rgba(59, 130, 246, 0.3);
   }
-} 
+}
+
+@media (max-width: 767px) {
+  .about-hero-content,
+  .about-content,
+  .about-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .about-title,
+  .about-section-title {
+    overflow-wrap: anywhere;
+  }
+
+  .about-impact-stats {
+    justify-content: center;
+    gap: 1rem;
+  }
+}

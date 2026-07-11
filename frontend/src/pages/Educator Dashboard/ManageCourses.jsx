@@ -16,6 +16,7 @@ function exportFeedbackCSV(course) {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+  
   URL.revokeObjectURL(url);
 }
 

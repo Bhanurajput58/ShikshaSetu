@@ -44,7 +44,10 @@ export default function Header() {
       navigate('/educator-dashboard');
     }
     handleMenuClose();
+    setIsMobileMenuOpen(false);
   };
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   const getPublicNavLinks = () => (
     <>
@@ -130,6 +133,26 @@ export default function Header() {
               </>
             )}
           </div>
+        </div>
+
+        <div className={`header-mobile-panel ${isMobileMenuOpen ? 'is-open' : ''}`}>
+          <nav aria-label="Mobile navigation" className="header-mobile-nav">
+            <Link to="/" className="header-mobile-link" onClick={closeMobileMenu}>Home</Link>
+            <Link to="/about" className="header-mobile-link" onClick={closeMobileMenu}>About</Link>
+            <Link to="/courses" className="header-mobile-link" onClick={closeMobileMenu}>Courses</Link>
+            <Link to="/contact" className="header-mobile-link" onClick={closeMobileMenu}>Contact</Link>
+          </nav>
+          {isAuthenticated() ? (
+            <div className="header-mobile-actions">
+              <button type="button" className="header-mobile-link" onClick={handleDashboardClick}>Dashboard</button>
+              <button type="button" className="header-mobile-link header-mobile-logout" onClick={handleLogout}>Logout</button>
+            </div>
+          ) : (
+            <div className="header-mobile-actions">
+              <Link to="/login" className="header-mobile-link" onClick={closeMobileMenu}>Login</Link>
+              <Link to="/register" className="header-mobile-link" onClick={closeMobileMenu}>Register</Link>
+            </div>
+          )}
         </div>
       </div>
     </header>

@@ -236,7 +236,7 @@ export default function Home() {
           }}
         >
           {stats.map((stat, index) => (
-            <Grid key={index} columns={{ xs: 12, sm: 6, md: 3 }}>
+            <Grid key={index} size={{ xs: 12, sm: 6, md: 3 }}>
               <Paper 
                 elevation={0} 
                 className="home-stat-card"
@@ -347,12 +347,9 @@ export default function Home() {
         <Grid 
           container 
           spacing={4}
-          sx={{
-            flexWrap: 'nowrap',
-          }}
         >
           {features.map((feature, index) => (
-            <Grid key={index} columns={{ xs: 12, sm: 6, md: 3 }}>
+            <Grid key={index} size={{ xs: 12, sm: 6, md: 3 }}>
               <Paper 
                 elevation={2} 
                 className="home-feature-card"
@@ -368,7 +365,6 @@ export default function Home() {
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
-                  flexWrap: 'nowrap',
                   '&:hover': {
                     transform: 'translateY(-12px) rotateX(5deg)',
                     boxShadow: `
@@ -458,7 +454,7 @@ export default function Home() {
           <Grid container spacing={4} sx={{ justifyContent: 'center', py: 4 }}>
             {testimonials.length > 0 ? (
               testimonials.map((testimonial, index) => (
-                <Grid key={index} columns={{ xs: 12, md: 4 }}>
+                <Grid key={index} size={{ xs: 12, md: 4 }}>
                   <Paper 
                     elevation={3} 
                     className="home-testimonial-card"

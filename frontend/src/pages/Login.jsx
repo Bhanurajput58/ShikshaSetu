@@ -89,19 +89,18 @@ export default function Login() {
 
   return (
     <div className="login-container">
-      <Container maxWidth={false} sx={{ padding: 0, margin: 0, width: '100%', height: 'calc(100vh - 78px)' }}>
-        <Grid container spacing={0} className="login-grid" sx={{ height: 'calc(100vh - 78px)' }}>
+      <Container maxWidth={false} className="login-page-content">
+        <Grid container spacing={0} className="login-grid">
           {/* Left side - Image */}
-          <Grid item xs={12} md={7.2} sx={{ width: '60%', flex: '0 0 60%', height: 'calc(100vh - 78px)' }}>
+          <Grid item xs={12} md={7} className="login-visual-column">
             <Box sx={{ 
               display: { xs: 'none', md: 'flex' },
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              height: 'calc(100vh - 78px)',
+              minHeight: '100%',
               width: '100%',
-              maxHeight: 'calc(100vh - 78px)',
-              overflow: 'hidden'
+              maxHeight: '100%',
             }}>
               <img 
                 src="/assets/images/login.png" 
@@ -139,7 +138,7 @@ export default function Login() {
           </Grid>
 
           {/* Right side - Login form */}
-          <Grid item xs={12} md={4.8} sx={{ width: '40%', flex: '0 0 40%', height: 'calc(100vh - 78px)' }}>
+          <Grid item xs={12} md={5} className="login-form-column">
             <div className="login-form-container">
               <Typography 
                 variant="h4" 

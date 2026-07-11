@@ -509,4 +509,33 @@
   .contact-form-field .MuiInputLabel-root {
     color: #94a3b8;
   }
-} 
+}
+
+@media (max-width: 767px) {
+  .contact-hero-content,
+  .contact-section,
+  .contact-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .contact-title,
+  .contact-form-title,
+  .contact-links-title {
+    overflow-wrap: anywhere;
+  }
+
+  .contact-form-card {
+    padding: 1.25rem;
+  }
+
+  .contact-links {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .contact-link {
+    justify-content: center;
+    width: 100%;
+  }
+}

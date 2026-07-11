@@ -1,19 +1,22 @@
 .login-container {
-  height: calc(100vh - 78px);
+  min-height: calc(100dvh - 3.5rem);
   background: white;
   padding: 0;
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
   margin: 0;
-  position: fixed;
-  top: 78px; /* Position below header */
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
+}
+
+.login-page-content {
+  margin: 0;
+  max-width: none;
+  padding: 0;
+  width: 100%;
 }
 
 .login-grid {
-  height: calc(100vh - 78px);
+  min-height: calc(100dvh - 3.5rem);
   align-items: center;
   width: 100%;
   margin: 0;
@@ -48,9 +51,9 @@
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
-  height: calc(100vh - 78px);
+  min-height: calc(100dvh - 3.5rem);
   width: 100%;
-  max-height: calc(100vh - 78px);
+  max-height: none;
   margin: 0;
   position: relative;
 }
@@ -202,15 +205,24 @@
 /* Mobile Responsive */
 @media (max-width: 960px) {
   .login-container {
-    height: calc(100vh - 64px);
-    padding: 0;
-    overflow: hidden;
+    min-height: calc(100dvh - 3.25rem);
+    padding: 1.5rem 0.75rem;
+    overflow: visible;
+  }
+
+  .login-grid,
+  .login-form-container {
+    min-height: auto;
+  }
+
+  .login-form-column {
+    width: 100%;
   }
   
   .login-form-paper {
     padding: 1.25rem 0.75rem;
     margin: 0 0.25rem;
-    max-height: calc(100vh - 80px);
+    max-height: none;
   }
   
   .login-illustration-container {
@@ -287,4 +299,4 @@
 
 .login-container::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
-} 
+}

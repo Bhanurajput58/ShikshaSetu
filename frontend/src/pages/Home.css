@@ -637,3 +637,29 @@
 .home-features-section .MuiGrid-container {
   flex-wrap: nowrap !important;
 }
+
+/* Public-page mobile safeguards */
+@media (max-width: 767px) {
+  .home-hero-content,
+  .home-section,
+  .home-testimonials-section,
+  .home-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .home-cta-row {
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .home-cta-btn {
+    min-width: 0 !important;
+    width: 100%;
+  }
+
+  .home-features-section .MuiGrid-container {
+    flex-wrap: wrap !important;
+  }
+}

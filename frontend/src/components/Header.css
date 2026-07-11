@@ -172,6 +172,10 @@
   cursor: pointer;
 }
 
+.header-mobile-panel {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .header-menu-btn {
     display: none;
@@ -234,6 +238,45 @@
 
   .header-title {
     font-size: 1.1rem;
+  }
+
+  .header-actions > :not(.header-menu-btn) {
+    display: none;
+  }
+
+  .header-mobile-panel.is-open {
+    display: block;
+    border-top: 1px solid rgba(229, 231, 235, 0.9);
+    padding: 0.5rem 0 0.75rem;
+  }
+
+  .header-mobile-nav,
+  .header-mobile-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
+  }
+
+  .header-mobile-actions {
+    margin-top: 0.4rem;
+  }
+
+  .header-mobile-link {
+    appearance: none;
+    border: 0;
+    border-radius: 0.5rem;
+    background: #f1f5f9;
+    color: #1e3a8a;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    padding: 0.7rem 0.8rem;
+    text-align: left;
+    text-decoration: none;
+  }
+
+  .header-mobile-logout {
+    color: #b91c1c;
   }
 }
 
