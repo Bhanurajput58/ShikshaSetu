@@ -1,0 +1,147 @@
+/* ManageCourses Page Styles */
+
+.manage-courses-container {
+  min-height: 100vh;
+  background: #f9fafb;
+  padding: 1rem;
+}
+
+.manage-courses-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e3a8a;
+}
+
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(60,60,60,0.06);
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.course-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(60,60,60,0.06);
+  padding: 1.5rem;
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.course-card:hover {
+  box-shadow: 0 8px 24px rgba(60,60,60,0.12);
+}
+
+.course-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.course-type {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin-left: 0.5rem;
+}
+
+.course-tags {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-top: 0.25rem;
+}
+
+.course-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.course-edit-input {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.course-save-btn {
+  background: #22c55e;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.course-save-btn:hover {
+  background: #16a34a;
+}
+
+.course-edit-btn {
+  background: #facc15;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.course-edit-btn:hover {
+  background: #eab308;
+}
+
+.course-delete-btn {
+  background: #ef4444;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.course-delete-btn:hover {
+  background: #b91c1c;
+}
+
+.course-feedback {
+  padding: 1rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.course-feedback-title {
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 0.25rem;
+}
+
+.course-feedback-list {
+  margin-left: 1.5rem;
+  list-style: disc;
+  color: #334155;
+  font-size: 0.98rem;
+}
+
+.course-feedback-item {
+  margin-bottom: 0.25rem;
+}
+
+.course-feedback-user {
+  font-weight: 600;
+  color: #0ea5e9;
+} 
